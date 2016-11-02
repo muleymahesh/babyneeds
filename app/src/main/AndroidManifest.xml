@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.maks.babyneeds.Activity">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".WhatsNewActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_whats_new"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShopByCategoryActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_shop_by_category"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyOrdersActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_my_orders"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".MyCartActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_my_cart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlaceOrderActivity"
+            android:configChanges="orientation"
+            android:label="Place order"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductListActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_product_list"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BrandListActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchResultsActivity" />
+        </activity>
+        <activity
+            android:name=".ShowShoppingCartActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_show_shopping_cart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddToCartActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_add_to_cart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServicesCategoryActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServicesActivity"
+            android:configChanges="orientation"
+            android:label="Services"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductDetailScreenActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_product_detail_screen"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="@string/title_activity_registration" />
+        <activity android:name=".AddressActivity" />
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".CategoryActivity" />
+
+        <activity android:name=".ServiceDetailActivity" />
+        <activity android:name=".ForgotPassActivity"></activity>
+        <activity android:name=".PasswordResetActivity"></activity>
+
+        <activity android:name=".SearchResultsActivity">
+
+            <!-- to identify this activity as "searchable" -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.maks.babyneeds.services.MyGCMIntentService"
+            android:exported="false" />
+        <service
+            android:name="com.maks.babyneeds.services.MyIDListenerService"
+            android:enabled="true"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

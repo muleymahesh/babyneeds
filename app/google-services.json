@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1063542947486",
+    "firebase_url": "https://babyneeds-147308.firebaseio.com",
+    "project_id": "babyneeds-147308",
+    "storage_bucket": "babyneeds-147308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063542947486:android:5f45a68b42d179cd",
+        "android_client_info": {
+          "package_name": "com.maks.babyneeds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063542947486-bhk1m7ndv450p4mkblrrso8300ckg94n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maks.babyneeds",
+            "certificate_hash": "D2C8763D68A25A20AB4244A456BA4798A925D2B2"
+          }
+        },
+        {
+          "client_id": "1063542947486-1k84qtg1vq3sh1nc6d4kskr99u9i4lko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgiPmo69UWVuuSVMmftO0vKjk86hZycSg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063542947486-1k84qtg1vq3sh1nc6d4kskr99u9i4lko.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

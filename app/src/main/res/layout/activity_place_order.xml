@@ -1,0 +1,125 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.maks.babyneeds.Activity.MyOrdersActivity"
+    >
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+    <LinearLayout
+         android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:paddingBottom="40dp"
+        android:layout_gravity="center_horizontal" >
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lladdr"
+            android:layout_margin="5dp"
+            android:padding="5dp">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ add new address"
+            android:id="@+id/btnAddr"
+            android:background="@drawable/rounded_rect"
+            android:layout_margin="5dp"
+            android:textSize="13sp"
+            android:padding="1dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Select delivery date: "
+            android:id="@+id/txtDelDate"
+            android:textColor="@color/app_text"
+            android:padding="4dp"
+            android:typeface="serif"
+            android:layout_margin="10dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDate"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_rect"
+            android:hint="Touch here to select date"
+            android:padding="10dp"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Delivery time slot"
+            android:id="@+id/txtDeltime"
+            android:textColor="@color/app_text"
+            android:padding="4dp"
+            android:typeface="serif"
+            android:layout_margin="10dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/timeslot"
+            android:id="@+id/spnTimeslot"
+            android:layout_margin="5dp"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Mode of payment"
+            android:id="@+id/txtptype"
+            android:textColor="@color/app_text"
+            android:padding="4dp"
+            android:typeface="serif"
+            android:layout_marginLeft="10dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/payment_mode"
+            android:id="@+id/spnPaymentType"
+            android:layout_margin="5dp"
+            />
+
+    </LinearLayout>
+</ScrollView>
+    <Button
+        android:id="@+id/orderBtn"
+        android:layout_width="match_parent"
+        android:background="@color/app_primary"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:text="ORDER NOW"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</LinearLayout>
