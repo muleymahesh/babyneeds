@@ -8,6 +8,8 @@
     </array>
     <array name="payment_mode">
         <item>Cash on delivery</item>
+        <item>COD by Paytm</item>
+        <item>COD by Mobikwik</item>
     </array>
 
     <array name="pincode">

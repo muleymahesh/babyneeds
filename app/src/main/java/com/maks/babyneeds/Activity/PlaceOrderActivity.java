@@ -49,7 +49,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private TextView txtDate;
     Button orderBtn,btnAddr;
 
-    Spinner spnTimeSlot;
+    Spinner spnTimeSlot,spnPaymentType;
     ArrayList<ShoppingCart> list;
     String amount,selected_date;
 
@@ -136,9 +136,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private void initView() {
         orderBtn=(Button)findViewById(R.id.orderBtn);
         spnTimeSlot =(Spinner)findViewById(R.id.spnTimeslot);
+        spnPaymentType =(Spinner)findViewById(R.id.spnPaymentType);
 
         spnTimeSlot.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,
                 new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM","5 - 7 PM"}));
+       /* spnTimeSlot.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,
+                new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM"}));*/
 
         btnAddr=(Button)findViewById(R.id.btnAddr);
         txtDate = (TextView)findViewById(R.id.txtDate);
@@ -199,21 +202,27 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     if(cal.get(Calendar.HOUR_OF_DAY)<9){
                         spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
                                 new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM","5 - 7 PM"}));
+/*                        spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                                new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM"}));*/
                     }else
                     if(cal.get(Calendar.HOUR_OF_DAY)<11){
                         spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
                                 new String[]{"11 - 1 PM","1 - 3 PM","3 - 5 PM","5 - 7 PM"}));
+                        /*spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                                new String[]{"11 - 1 PM","1 - 3 PM","3 - 5 PM"}));*/
                     }else
                     if(cal.get(Calendar.HOUR_OF_DAY)<13){
                         spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
                                 new String[]{"1 - 3 PM","3 - 5 PM","5 - 7 PM"}));
+                        /*spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                                new String[]{"1 - 3 PM","3 - 5 PM"})); */
                     }else
-
                     if(cal.get(Calendar.HOUR_OF_DAY)<15){
                         spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
                                 new String[]{"3 - 5 PM","5 - 7 PM"}));
+                      /*  spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                                new String[]{"3 - 5 PM"})); */
                     }else
-
                     if(cal.get(Calendar.HOUR_OF_DAY)<17){
                         spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
                                 new String[]{"5 - 7 PM"}));
@@ -226,7 +235,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 if(newDate.after(newCalendar) && newDate.get(Calendar.DAY_OF_YEAR)>cal.get(Calendar.DAY_OF_YEAR)) {
                     txtDate.setText(dateFormatter.format(newDate.getTime()));
                     spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
-                            new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM","5 - 7 PM"}));
+                            new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM","b"}));
+                    /*spnTimeSlot.setAdapter(new ArrayAdapter<String>(PlaceOrderActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                            new String[]{"9 - 11 AM","11 - 1 PM","1 - 3 PM","3 - 5 PM"}));*/
 
                 }
                 else{
@@ -363,7 +374,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 data+="]\"";
                 String req="{\"method\":\"add_oder\",\"first_name\":\""+addresses.get(0).getFname()+"\",\"last_name\":\""+addresses.get(0).getLname()+"\"," +
                         "\"gender\":\"Male\",\"email\":\""+new AppPreferences(PlaceOrderActivity.this).getEmail()+"\",\"amount\":\""+amount+
-                        "\",\"shipping_type\":\"cod\",\"street\":\""+addresses.get(0).getArea()+"\",\"city\":\""+addresses.get(0).getAddr()+"\",\"state\":\""+addresses.get(0).getLandmark()+"\",\"country\":\"India\",\"zipcode\":\""+addresses.get(0).getZipcode()+
+                        "\",\"shipping_type\":\""+spnPaymentType.getSelectedItem().toString()+"\",\"street\":\""+addresses.get(0).getArea()+"\",\"city\":\""+addresses.get(0).getAddr()+"\",\"state\":\""+addresses.get(0).getLandmark()+"\",\"country\":\"India\",\"zipcode\":\""+addresses.get(0).getZipcode()+
                         "\",\"phone\":\""+addresses.get(0).getPhone()+"\",\"order_detail\":\"Delivery Date "+txtDate.getText().toString()+", between "+spnTimeSlot.getSelectedItem().toString()+"\",\"user_id\":\"23\",\"p_id\":\""+p_id+"\",\"qty\":\""+qty+"\"}";
 
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -76,39 +77,41 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         new ProductDetailTask().execute(Constants.WS_URL,"{\"method\":\"get_product_detail\",\"p_id\":\""+getIntentData()+"\", \"email\":\""+ new AppPreferences(ProductDetailScreenActivity.this).getEmail()+"\"}");
     }
 
-    public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
-        //integer to count number of tabs
-        int tabCount;
+    public class CustomPagerAdapter extends PagerAdapter {
 
-        //Constructor to the class
-        public CustomPagerAdapter(FragmentManager fm, int tabCount) {
-            super(fm);
-            //Initializing tab count
-            this.tabCount = tabCount;
+        private Context mContext;
+
+        public CustomPagerAdapter(Context context) {
+            mContext = context;
         }
 
-        //Overriding method getItem
         @Override
-        public Fragment getItem(int position) {
-            //Returning the current tabs
-            Tab1 tab1 = new Tab1();
-            Bundle extras = new Bundle();
-            extras.putString("url", product.getImgs().get(position).getImg_url());
-            tab1.setArguments(extras);
-            return tab1;
+        public Object instantiateItem(ViewGroup collection, int position) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            ImageView img  = (ImageView) inflater.inflate(R.layout.pager_item, collection, false);
+            Picasso.with(ProductDetailScreenActivity.this).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(position).getImg_url()).placeholder(R.drawable.baby_bg).error(R.drawable.baby_bg).into(img);
+
+            collection.addView(img);
+            return img;
         }
 
+        @Override
+        public void destroyItem(ViewGroup collection, int position, Object view) {
+            collection.removeView((View) view);
+        }
 
-        //Overriden method getCount to get the number of tabs
         @Override
         public int getCount() {
-
-            Log.e("vp size", "" + product.getImgs().size());
             return product.getImgs().size();
         }
-    }
 
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+    }
     public static class Tab1 extends Fragment {
 
         //Overriden method onCreateView
@@ -333,7 +336,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         try {
 
             //     Picasso.with(getBaseContext()).load(Constants.PRODUCT_IMG_PATH + product.getImgs().get(0).getImg_url()).resize(400, 300).error(R.drawable.baby_bg).centerInside().into(imgView);
-            adapter = new CustomPagerAdapter(getSupportFragmentManager(), product.getImgs().size());
+            adapter = new CustomPagerAdapter(ProductDetailScreenActivity.this);
             viewPager.setAdapter(adapter);
 
 

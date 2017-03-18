@@ -110,54 +110,40 @@ public class MainActivity extends AppCompatActivity implements CatgoryAdapter.On
     }
 
 
-    public class CustomPagerAdapter extends FragmentStatePagerAdapter {
+    public class CustomPagerAdapter extends PagerAdapter {
 
-        //integer to count number of tabs
-        int tabCount;
+        private Context mContext;
 
-        //Constructor to the class
-        public CustomPagerAdapter(FragmentManager fm, int tabCount) {
-            super(fm);
-            //Initializing tab count
-            this.tabCount= tabCount;
+        public CustomPagerAdapter(Context context) {
+            mContext = context;
         }
 
-        //Overriding method getItem
         @Override
-        public Fragment getItem(int position) {
-            //Returning the current tabs
-                    Tab1 tab1 = new Tab1();
-            Bundle extras = new Bundle();
-            extras.putString("url",bannerList.get(position).getImagePath());
-                    tab1.setArguments(extras);
-                    return tab1;
-            }
+        public Object instantiateItem(ViewGroup collection, int position) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            ImageView img  = (ImageView)  inflater.inflate(R.layout.pager_item, collection, false);
+            Picasso.with(MainActivity.this).load(Constants.PRODUCT_IMG_PATH+bannerList.get(position).getImagePath()).placeholder(R.drawable.baby_bg).error(R.drawable.baby_bg).into(img);
 
+            collection.addView(img);
+            return img;
+        }
 
-        //Overriden method getCount to get the number of tabs
+        @Override
+        public void destroyItem(ViewGroup collection, int position, Object view) {
+            collection.removeView((View) view);
+        }
+
         @Override
         public int getCount() {
             return bannerList.size();
         }
-    }
 
-    public static class Tab1 extends Fragment {
-
-        //Overriden method onCreateView
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-            //Returning the layout file after inflating
-            //Change R.layout.tab1 in you classes
-            ImageView v = (ImageView) inflater.inflate(R.layout.pager_item, container, false);
-
-            Picasso.with(getContext()).load(Constants.PRODUCT_IMG_PATH+getArguments().getString("url")).resize(400,200).centerCrop().error(R.mipmap.ic_launcher).into(v);
-
-            return v;
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
         }
 
     }
-
 
     class BannerPojoTask extends AsyncTask<String, Void,String> {
 
@@ -227,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements CatgoryAdapter.On
                bannerList.addAll(dto.getData());
         listCategory.addAll(dto.getNew_data());
         //Finally initializing our adapter
-        adapter = new CustomPagerAdapter(getSupportFragmentManager(),bannerList.size());
+        adapter = new CustomPagerAdapter(MainActivity.this);
         viewPager.setAdapter(adapter);
         
         handler.postDelayed(runnable,4000);

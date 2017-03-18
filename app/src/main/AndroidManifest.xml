@@ -103,7 +103,6 @@
             android:label="@string/title_activity_product_detail_screen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".RegistrationActivity"
             android:label="@string/title_activity_registration" />
@@ -112,11 +111,9 @@
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".CategoryActivity" />
-
         <activity android:name=".ServiceDetailActivity" />
-        <activity android:name=".ForgotPassActivity"></activity>
-        <activity android:name=".PasswordResetActivity"></activity>
-
+        <activity android:name=".ForgotPassActivity" />
+        <activity android:name=".PasswordResetActivity" />
         <activity android:name=".SearchResultsActivity">
 
             <!-- to identify this activity as "searchable" -->
@@ -151,6 +148,7 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".OrderSummaryActivity"></activity>
     </application>
 
 </manifest>
