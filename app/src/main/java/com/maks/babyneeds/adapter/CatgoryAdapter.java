@@ -7,15 +7,14 @@ package com.maks.babyneeds.adapter;
 
         import android.app.Activity;
         import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
         import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
         import android.widget.ImageView;
         import android.widget.TextView;
 
-        import com.maks.babyneeds.Activity.CategoryActivity;
         import com.maks.babyneeds.Activity.MainActivity;
+        import com.maks.babyneeds.Activity.MainActivityBottomBar;
         import com.maks.babyneeds.Activity.R;
         import com.maks.babyneeds.Utility.Constants;
         import com.maks.babyneeds.Utility.Utils;
@@ -30,13 +29,13 @@ import android.view.ViewGroup;
 public class CatgoryAdapter extends RecyclerView.Adapter<CatgoryAdapter.ViewHolder> {
 
    // private CategoryActivity context;
-   private MainActivity context;
+   private MainActivityBottomBar context;
     OnItemClickListener mItemClickListener;
     //List of Category
     List<Category> Category;
     Activity activity;
 
-    public CatgoryAdapter(List<Category> Category, MainActivity context){
+    public CatgoryAdapter(List<Category> Category, MainActivityBottomBar context){
         super();
         //Getting all the Category
         this.Category = Category;

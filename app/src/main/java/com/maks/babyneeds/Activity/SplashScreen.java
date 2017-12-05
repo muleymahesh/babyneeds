@@ -29,10 +29,10 @@ public class SplashScreen extends AppCompatActivity {
                 Intent mainIntent ;
 
                 if(new AppPreferences(SplashScreen.this).isLogin()) {
-                    mainIntent = new Intent(SplashScreen.this, MainActivity.class);//LoginActivity
+                    mainIntent = new Intent(SplashScreen.this, MainActivityBottomBar.class);//LoginActivity
                 }
                 else{
-                    mainIntent = new Intent(SplashScreen.this, MainActivity.class);//LoginActivity
+                    mainIntent = new Intent(SplashScreen.this, MainActivityBottomBar.class);//LoginActivity
 
                 }
 

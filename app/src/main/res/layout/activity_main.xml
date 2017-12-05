@@ -11,7 +11,7 @@
         android:id="@+id/drawerLayout"
         android:layout_height="match_parent">
 
-        <include layout="@layout/content_main"></include>
+        <include layout="@layout/content_main_bottombar_home"></include>
         <!-- navigation drawer -->
 
         <include layout="@layout/layout_drawer" />

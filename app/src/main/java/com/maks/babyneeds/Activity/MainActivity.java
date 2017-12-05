@@ -8,10 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,26 +35,17 @@ import com.google.gson.Gson;
 import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
-import com.maks.babyneeds.adapter.CardArrayAdapter;
 import com.maks.babyneeds.adapter.CatgoryAdapter;
 import com.maks.babyneeds.adapter.DrawerListAdapter;
-import com.maks.babyneeds.adapter.NewProductAdapter;
-import com.maks.babyneeds.adapter.ProductAdapter;
 import com.maks.model.BannerPojo;
 import com.maks.model.Category;
 import com.maks.model.HomepageDTO;
-import com.maks.model.Product;
-import com.maks.model.Service;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements CatgoryAdapter.On
         getData();
 
 //        productAdapter = new NewProductAdapter(listCategory, MainActivity.this);
-    productAdapter  = new CatgoryAdapter(listCategory,this);
+   // productAdapter  = new CatgoryAdapter(listCategory,this);
         //Adding adapter to recyclerview
         recyclerView.setAdapter(productAdapter);
     }
