@@ -21,6 +21,9 @@
      <color name="app_text">#006064</color>
      <color name="toolbar">@color/app_primary</color>
  -->
+    <color name="colorBackground">@color/white</color>
+    <color name="colorNavAccentSelected">@color/app_primary</color>
+    <color name="colorNavAccentUnselected">#e2e2e3</color>
 
     <color name="background_gradient_start">#000000</color>
     <color name="background_gradient_end">#DDDDDD</color>

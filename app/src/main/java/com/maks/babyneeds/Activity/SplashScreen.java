@@ -1,9 +1,12 @@
 package com.maks.babyneeds.Activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
 
 import com.maks.babyneeds.Utility.AppPreferences;
 
@@ -18,6 +21,14 @@ public class SplashScreen extends AppCompatActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_splash_screen);
+
+        ImageView imageview = (ImageView)findViewById(R.id.splashscreen);
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(imageview, "y", metrics.heightPixels / 2 - imageview.getHeight() / 2); // metrics.heightPixels or root.getHeight()
+        translationY.setDuration(1500);
+        translationY.start();
+
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-        <include layout="@layout/toolbar" />

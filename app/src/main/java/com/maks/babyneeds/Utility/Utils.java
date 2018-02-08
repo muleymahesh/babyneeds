@@ -12,21 +12,12 @@ import java.text.DecimalFormat;
 public class Utils {
 
     public static Typeface setLatoFont(Activity activity) {
-        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.LatoFont);
+        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.ROBOTO);
         return tf;
     }
 
     public static Typeface setLatoFontBold(Activity activity) {
-        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.LatoFontBold);
-        return tf;
-    }
-
-    public static Typeface setLatoFontLight(Activity activity) {
-        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.LatoFontBlackLight);
-        return tf;
-    }
-    public static Typeface setLatoFontHairLine(Activity activity) {
-        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.LatoFontHairline);
+        Typeface tf = Typeface.createFromAsset(activity.getAssets(), Constants.ROBOTO);
         return tf;
     }
 

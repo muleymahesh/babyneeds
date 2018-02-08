@@ -10,6 +10,8 @@ public class Constants {
     public final static String TAG_CAT_ID ="cat_id";
     public final static String TAG_CAT_NAME ="cat_name";
 
+    // fonts
+    public final static String ROBOTO = "fonts/Roboto_Regular.ttf";
 
     //products
     public final static String TAG_P_ID ="p_id";
@@ -36,12 +38,6 @@ public final static String TAG_DOCTOR_ADDRESS ="address";
     public final static String TAG_CONTACT ="contact";
     public final static String TAG_DETAIL ="detail";
 
-
-    //Fonts
-public static String LatoFont = "fonts/LDFComicSans.ttf";
-    public static String LatoFontBold = "fonts/monof55.ttf";
-    public static String LatoFontHairline= "fonts/monof55.ttf";
-    public static String LatoFontBlackLight = "fonts/monof55.ttf";
 
     //Webservices
     public static final String WS_URL = "http://babyneeds.co.in/babyneeds/ws/api.php";
