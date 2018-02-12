@@ -1,38 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context="com.maks.babyneeds.fragment.HomeFragment">
-
-    <include layout="@layout/toolbar"></include>
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ss.com.bannerslider.views.BannerSlider
-        android:id="@+id/banner_slider1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:loopSlides="true"
-        app:interval="5000"
-        app:defaultIndicators="circle"
-        android:background="#B39DDB"
-        tools:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/recyclerView"
-        android:scrollbars="none"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/banner_slider"/>
+            <TextView
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latest Offers"/>
 
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recyclerView"
+                android:padding="@dimen/eight_dp"
+                android:layout_height="wrap_content"
+                />
 
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

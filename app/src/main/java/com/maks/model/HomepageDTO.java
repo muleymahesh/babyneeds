@@ -19,9 +19,11 @@ public class HomepageDTO {
     String responseCode;
     @SerializedName("data")
     List<BannerPojo> data;
+    @SerializedName("offer_data")
+    List<Offer> offer_data;
     @SerializedName("new_data")
 //    List<Product> new_data;
-            List<Category> new_data;
+    List<Category> new_data;
     public String getResult() {
         return result;
     }
@@ -36,6 +38,12 @@ public class HomepageDTO {
 
     public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public List<Offer> getOffer_data() { return offer_data;}
+
+    public void setOffer_data(List<Offer> offer_data) {
+        this.offer_data = offer_data;
     }
 
     public List<BannerPojo> getData() {
@@ -53,4 +61,5 @@ public class HomepageDTO {
     public void setNew_data(List<Category> new_data) {
         this.new_data = new_data;
     }
+
 }

@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 import com.maks.babyneeds.Utility.AppPreferences;
+import com.maks.babyneeds.phase2.DashboardActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -40,10 +41,10 @@ public class SplashScreen extends AppCompatActivity {
                 Intent mainIntent ;
 
                 if(new AppPreferences(SplashScreen.this).isLogin()) {
-                    mainIntent = new Intent(SplashScreen.this, MainActivityBottomBar.class);//LoginActivity
+                    mainIntent = new Intent(SplashScreen.this, DashboardActivity.class);//LoginActivity
                 }
                 else{
-                    mainIntent = new Intent(SplashScreen.this, MainActivityBottomBar.class);//LoginActivity
+                    mainIntent = new Intent(SplashScreen.this, DashboardActivity.class);//LoginActivity
 
                 }
 

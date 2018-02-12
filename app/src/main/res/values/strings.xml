@@ -181,12 +181,14 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_home">Home</string>
-    <string name="title_wishlist">Wishlist</string>
-    <string name="title_offers">Offers</string>
-    <string name="title_cart">Cart</string>
+    <string name="title_services">services</string>
+    <string name="title_category">Categories</string>
     <string name="title_profile">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

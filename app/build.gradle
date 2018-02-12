@@ -11,31 +11,29 @@ android {
         }
     }
 
-       compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
-        defaultConfig {
+    defaultConfig {
         applicationId "com.maks.babyneeds"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 11
         versionName "1.1"
         multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-           // signingConfig signingConfigs.config
+            // signingConfig signingConfigs.config
         }
         debug {
 //            signingConfig signingConfigs.config
         }
     }
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "8g"
-    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
@@ -47,9 +45,13 @@ android {
 
 
 
+
+
 dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:27.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-vector-drawable:27.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // compile 'com.android.volley:volley:1.0.0'
     //noinspection GradleCompatible

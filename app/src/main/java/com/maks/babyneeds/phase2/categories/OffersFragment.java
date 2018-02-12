@@ -1,113 +1,79 @@
-package com.maks.babyneeds.fragment;
+package com.maks.babyneeds.phase2.categories;
+
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.maks.babyneeds.Activity.MainActivityBottomBar;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
-import com.maks.babyneeds.adapter.CatgoryAdapter;
+import com.maks.babyneeds.phase2.DashboardActivity;
 import com.maks.model.BannerPojo;
 import com.maks.model.Category;
 import com.maks.model.HomepageDTO;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ss.com.bannerslider.banners.Banner;
-import ss.com.bannerslider.banners.DrawableBanner;
-import ss.com.bannerslider.banners.RemoteBanner;
-import ss.com.bannerslider.views.BannerSlider;
 
 
-public class HomeFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class OffersFragment extends Fragment {
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
-    @BindView(R.id.banner_slider1) BannerSlider bannerSlider;
-    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private GridLayoutManager layoutManager;
     private RecyclerView.Adapter productAdapter;
     private List<Category> listCategory = new ArrayList<>();
     List<BannerPojo> bannerList = new ArrayList<>();
 
-    public HomeFragment() {
+    public OffersFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static OffersFragment newInstance() {
+        OffersFragment fragment = new OffersFragment();
         return fragment;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_favourite, container, false);
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        initToolbar(toolbar);
         getData();
+        setUpRecyclerView();
         return view;
     }
-
     private void setUpRecyclerView() {
 
         layoutManager = new GridLayoutManager(getContext(),2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (position % 3 == 0 ? 2 : 1);
-            }
-        });
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        productAdapter  = new CatgoryAdapter(listCategory, (MainActivityBottomBar) getActivity());
+        recyclerView.setNestedScrollingEnabled(false);
+        productAdapter  = new CatgoryAdapter(listCategory, (DashboardActivity) getActivity());
         //Adding adapter to recyclerview
         recyclerView.setAdapter(productAdapter);
     }
 
-    private void initToolbar(Toolbar toolbar) {
-        if (toolbar != null) {
-            toolbar.setTitle("Baby Needs");
-            ((MainActivityBottomBar)getActivity()).setSupportActionBar(toolbar);
-        }
-
-
-    }
 
     private void getCategories(){
 
@@ -121,27 +87,12 @@ public class HomeFragment extends Fragment {
         bannerList.addAll(dto.getData());
         listCategory.addAll(dto.getNew_data());
         //Finally initializing our adapter
-        setUpRecyclerView();
-        setUpBanners();
 
         productAdapter.notifyDataSetChanged();
 
 
     }
 
-    private void setUpBanners() {
-
-        List<Banner> banners=new ArrayList<>();
-        //add banner using image url
-        for (BannerPojo b: bannerList
-             ) {
-            RemoteBanner banner = new RemoteBanner(Constants.PRODUCT_IMG_PATH+b.getImagePath());
-            banner.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            banners.add(banner);
-        }
-
-        bannerSlider.setBanners(banners);
-    }
 
     private void getData(){
         if(new ConnectionDetector(getContext()).isConnectingToInternet()) {

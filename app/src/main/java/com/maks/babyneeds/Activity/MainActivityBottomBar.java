@@ -1,22 +1,16 @@
 package com.maks.babyneeds.Activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.maks.babyneeds.adapter.CatgoryAdapter;
-import com.maks.babyneeds.fragment.FavouriteFragment;
-import com.maks.babyneeds.fragment.HomeFragment;
-import com.maks.babyneeds.fragment.OffersFragment;
-import com.maks.babyneeds.fragment.UserFragment;
+import com.maks.babyneeds.phase2.services.ServicesFragment;
+import com.maks.babyneeds.phase2.home.HomeFragment;
+import com.maks.babyneeds.phase2.categories.OffersFragment;
+import com.maks.babyneeds.phase2.user.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +27,7 @@ public class MainActivityBottomBar extends BottomBarHolderActivity implements Ca
         super.onCreate(savedInstanceState);
         NavigationPage page1 = new NavigationPage("Home", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_home), HomeFragment.newInstance());
         NavigationPage page2 = new NavigationPage("Categories", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_offer), OffersFragment.newInstance());
-        NavigationPage page3 = new NavigationPage("Billing", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_wishlist), FavouriteFragment.newInstance());
+        NavigationPage page3 = new NavigationPage("Billing", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_wishlist), ServicesFragment.newInstance());
         NavigationPage page4 = new NavigationPage("Profile", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_profile), UserFragment.newInstance());
 
         // add them in a list
