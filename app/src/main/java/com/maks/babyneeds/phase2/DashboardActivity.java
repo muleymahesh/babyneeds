@@ -8,15 +8,18 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.phase2.services.ServicesFragment;
 import com.maks.babyneeds.phase2.home.HomeFragment;
-import com.maks.babyneeds.phase2.categories.OffersFragment;
+import com.maks.babyneeds.phase2.categories.CategoryFragment;
 import com.maks.babyneeds.phase2.user.UserFragment;
 
 import java.lang.reflect.Field;
@@ -28,6 +31,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.navigation) BottomNavigationView navigation;
+    @BindView(R.id.drawerLayout)  DrawerLayout mDrawerLayout;
+    ;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,10 +72,26 @@ public class DashboardActivity extends AppCompatActivity {
     }
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Baby Needs");
+            toolbar.setTitle("BabyNeeds");
 
             setSupportActionBar(toolbar);
+            mDrawerLayout.setDrawerListener(new ActionBarDrawerToggle(this, mDrawerLayout,
+                    R.string.drawer_open, R.string.drawer_close) {
 
+                /** Called when a drawer has settled in a completely closed state. */
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                    getActionBar().setTitle("BabyNeeds");
+                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                }
+
+                /** Called when a drawer has settled in a completely open state. */
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    getActionBar().setTitle("BabyNeeds");
+                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                }
+            });
         }
 
 
@@ -92,7 +113,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadOffersFragment() {
-        OffersFragment fragment = new OffersFragment();
+        CategoryFragment fragment = new CategoryFragment();
         loadFragment(fragment);
     }
     void loadFragment(Fragment fragment){
@@ -124,5 +145,4 @@ public class DashboardActivity extends AppCompatActivity {
             Log.e("BNVHelper", "Unable to change value of shift mode", e);
         }
     }
-
 }

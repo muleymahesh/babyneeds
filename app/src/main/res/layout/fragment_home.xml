@@ -12,7 +12,7 @@
             android:layout_height="wrap_content">
             <include layout="@layout/banner_slider"/>
             <TextView
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_margin="@dimen/eight_dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Latest Offers"/>
@@ -20,6 +20,18 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:id="@+id/recyclerView"
+                android:padding="@dimen/eight_dp"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_margin="@dimen/eight_dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recommended for you"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recommendrecyclerView"
                 android:padding="@dimen/eight_dp"
                 android:layout_height="wrap_content"
                 />

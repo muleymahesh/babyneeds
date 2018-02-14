@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import com.maks.babyneeds.adapter.CatgoryAdapter;
 import com.maks.babyneeds.phase2.services.ServicesFragment;
 import com.maks.babyneeds.phase2.home.HomeFragment;
-import com.maks.babyneeds.phase2.categories.OffersFragment;
+import com.maks.babyneeds.phase2.categories.CategoryFragment;
 import com.maks.babyneeds.phase2.user.UserFragment;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class MainActivityBottomBar extends BottomBarHolderActivity implements Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationPage page1 = new NavigationPage("Home", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_home), HomeFragment.newInstance());
-        NavigationPage page2 = new NavigationPage("Categories", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_offer), OffersFragment.newInstance());
+        NavigationPage page2 = new NavigationPage("Categories", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_offer), CategoryFragment.newInstance());
         NavigationPage page3 = new NavigationPage("Billing", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_wishlist), ServicesFragment.newInstance());
         NavigationPage page4 = new NavigationPage("Profile", ContextCompat.getDrawable(this, R.drawable.ic_bottombar_profile), UserFragment.newInstance());
 

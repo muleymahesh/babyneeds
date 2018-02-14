@@ -36,9 +36,9 @@ public class CatgoryAdapter extends RecyclerView.Adapter<CatgoryAdapter.ViewHold
     OnItemClickListener mItemClickListener;
     //List of Category
     List<Category> Category;
-    Activity context;
+    CategoryFragment context;
 
-    public CatgoryAdapter(List<Category> Category, Activity context){
+    public CatgoryAdapter(List<Category> Category, CategoryFragment context){
         super();
         //Getting all the Category
         this.Category = Category;
@@ -57,7 +57,7 @@ public class CatgoryAdapter extends RecyclerView.Adapter<CatgoryAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
             Category category = Category.get(position);
-            Picasso.with(context).load(Constants.PRODUCT_IMG_PATH + category.getCat_img()).resize(400, 220).centerCrop().into(holder.imageView);
+            Picasso.with(context.getContext()).load(Constants.PRODUCT_IMG_PATH + category.getCat_img()).resize(400, 220).centerCrop().into(holder.imageView);
             holder.textViewName.setText(category.getCat_name());
 
     }
@@ -79,7 +79,7 @@ public class CatgoryAdapter extends RecyclerView.Adapter<CatgoryAdapter.ViewHold
                 textViewName = (TextView) itemView.findViewById(R.id.title1);
                 if(textViewName!=null){
                     itemView.setOnClickListener(this);
-                    textViewName.setTypeface(Utils.setLatoFontBold(context));
+                    textViewName.setTypeface(Utils.setLatoFontBold(context.getActivity()));
                 }
 
         }
@@ -87,7 +87,7 @@ public class CatgoryAdapter extends RecyclerView.Adapter<CatgoryAdapter.ViewHold
         @Override
         public void onClick(View v) {
 
-//            context.onItemClick(v,getPosition());
+            context.onItemClick(v,getPosition());
         }
     }
 

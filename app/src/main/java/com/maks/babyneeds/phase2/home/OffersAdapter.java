@@ -66,7 +66,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     @Override
     public int getItemCount() {
 
-        return Category.size();
+        return Category.size()>4 ? 4 :Category.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

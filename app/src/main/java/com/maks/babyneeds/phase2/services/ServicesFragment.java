@@ -2,6 +2,7 @@ package com.maks.babyneeds.phase2.services;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.maks.babyneeds.Activity.R;
+import com.maks.babyneeds.Activity.ServicesActivity;
 import com.maks.babyneeds.Activity.ServicesCategoryActivity;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
@@ -33,7 +35,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServicesFragment extends Fragment {
+public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter.OnItemClickListener{
 
     private List<ServicesCategory> listCategory = new ArrayList<>();
     //Creating Views
@@ -89,6 +91,7 @@ public class ServicesFragment extends Fragment {
                                 listCategory.addAll(dto.getData());
 
                                 adapter = new ServicesCatgoryAdapter(listCategory,ServicesFragment.this);
+
                                 recyclerView.setAdapter(adapter);
                             }
                         }
@@ -97,5 +100,13 @@ public class ServicesFragment extends Fragment {
         }else{
             Toast.makeText(getContext(), "You are offline!.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent i  = new Intent(getActivity(), ServicesActivity.class);
+        i.putExtra("cat_id",listCategory.get(position).getId());
+        i.putExtra("cat_name",listCategory.get(position).getCategory());
+        startActivity(i);
     }
 }

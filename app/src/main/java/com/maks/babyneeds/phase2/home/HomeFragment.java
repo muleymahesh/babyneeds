@@ -39,11 +39,12 @@ import ss.com.bannerslider.views.BannerSlider;
 
 
 public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClickListener{
-    @BindView(R.id.recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.recyclerView) RecyclerView offersRecyclerView;
+    @BindView(R.id.recommendrecyclerView) RecyclerView recommendRecyclerView;
     @BindView(R.id.banner_slider1) BannerSlider bannerSlider;
 
     private GridLayoutManager layoutManager;
-    private RecyclerView.Adapter productAdapter;
+    private RecyclerView.Adapter productAdapter,offersAdapter;
     private List<Offer> listOffers = new ArrayList<>();
     List<BannerPojo> bannerList = new ArrayList<>();
 
@@ -75,12 +76,21 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
     private void setUpRecyclerView() {
 
         layoutManager = new GridLayoutManager(getContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setNestedScrollingEnabled(false);
+       offersRecyclerView.setLayoutManager(layoutManager);
+       offersRecyclerView.setItemAnimator(new DefaultItemAnimator());
+       offersRecyclerView.setNestedScrollingEnabled(false);
+        offersAdapter  = new OffersAdapter(listOffers,(DashboardActivity) getActivity());
+        offersRecyclerView.setAdapter(offersAdapter);
+
+        //Adding adapter to recyclerview
+        GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
+
+        recommendRecyclerView.setLayoutManager(playoutManager);
+        recommendRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        recommendRecyclerView.setNestedScrollingEnabled(false);
         productAdapter  = new OffersAdapter(listOffers,(DashboardActivity) getActivity());
         //Adding adapter to recyclerview
-        recyclerView.setAdapter(productAdapter);
+        recommendRecyclerView.setAdapter(productAdapter);
     }
 
 
@@ -99,6 +109,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         //Finally initializing our adapter
         setUpBanners();
 
+        offersAdapter.notifyDataSetChanged();
         productAdapter.notifyDataSetChanged();
 
 

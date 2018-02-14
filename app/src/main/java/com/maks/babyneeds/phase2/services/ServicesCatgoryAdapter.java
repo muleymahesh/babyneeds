@@ -69,7 +69,7 @@ public class ServicesCatgoryAdapter extends RecyclerView.Adapter<ServicesCatgory
 
         @Override
         public void onClick(View v) {
-            // context.onItemClick(v,getPosition());
+             context.onItemClick(v,getPosition());
         }
     }
 

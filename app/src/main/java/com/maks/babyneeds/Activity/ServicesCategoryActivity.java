@@ -178,10 +178,10 @@ public class ServicesCategoryActivity extends AppCompatActivity implements Catgo
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent i  = new Intent(this, ServicesActivity.class);
-        i.putExtra("cat_id",listCategory.get(position).getId());
-        i.putExtra("cat_name",listCategory.get(position).getCategory());
-        startActivity(i);
+                Intent i  = new Intent(this, ServicesActivity.class);
+                i.putExtra("cat_id",listCategory.get(position).getId());
+                i.putExtra("cat_name",listCategory.get(position).getCategory());
+                startActivity(i);
     }
 
 }

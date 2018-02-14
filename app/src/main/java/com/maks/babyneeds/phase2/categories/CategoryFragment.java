@@ -2,6 +2,7 @@ package com.maks.babyneeds.phase2.categories;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.maks.babyneeds.Activity.ProductListActivity;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
@@ -35,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OffersFragment extends Fragment {
+public class CategoryFragment extends Fragment implements CatgoryAdapter.OnItemClickListener {
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     private GridLayoutManager layoutManager;
@@ -43,12 +45,12 @@ public class OffersFragment extends Fragment {
     private List<Category> listCategory = new ArrayList<>();
     List<BannerPojo> bannerList = new ArrayList<>();
 
-    public OffersFragment() {
+    public CategoryFragment() {
         // Required empty public constructor
     }
 
-    public static OffersFragment newInstance() {
-        OffersFragment fragment = new OffersFragment();
+    public static CategoryFragment newInstance() {
+        CategoryFragment fragment = new CategoryFragment();
         return fragment;
     }
     @Override
@@ -69,7 +71,7 @@ public class OffersFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
-        productAdapter  = new CatgoryAdapter(listCategory, (DashboardActivity) getActivity());
+        productAdapter  = new CatgoryAdapter(listCategory, this);
         //Adding adapter to recyclerview
         recyclerView.setAdapter(productAdapter);
     }
@@ -130,4 +132,11 @@ public class OffersFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent i  = new Intent(getActivity(), ProductListActivity.class);
+        i.putExtra("cat_id",listCategory.get(position).getCat_id());
+        i.putExtra("cat_name",listCategory.get(position).getCat_name());
+        startActivity(i);
+    }
 }
