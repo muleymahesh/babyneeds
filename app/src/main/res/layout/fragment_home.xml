@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <include layout="@layout/banner_slider"/>
+
             <TextView
                 android:layout_margin="@dimen/eight_dp"
                 android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
                 android:padding="@dimen/eight_dp"
                 android:layout_height="wrap_content"
                 />
+
 
         </LinearLayout>
     </ScrollView>

@@ -23,6 +23,7 @@ import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.SQLite.SQLiteUtil;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.Utility.Utils;
+import com.maks.babyneeds.phase2.cart.CartFragment;
 import com.maks.model.ShoppingCart;
 import com.squareup.picasso.Picasso;
 
@@ -33,18 +34,17 @@ import java.util.List;
  */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
-    private MyCartActivity context;
+    CartFragment context;
     OnItemClickListener mItemClickListener;
     //List of Category
     List<ShoppingCart> shoppingCart;
-    Activity activity;
 
-    public CartAdapter(List<ShoppingCart> shoppingCart, MyCartActivity context){
+
+    public CartAdapter(List<ShoppingCart> shoppingCart, CartFragment context){
         super();
         //Getting all the Category
         this.shoppingCart = shoppingCart;
         this.context = context;
-        activity = (Activity)context;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         final ShoppingCart cart =  shoppingCart.get(position);
 
-        Picasso.with(context).load(Constants.PRODUCT_IMG_PATH+cart.getProduct().getImgs().get(0).getImg_url()).centerInside().resize(300,300).into(holder.imageView);
+        Picasso.with(context.getActivity()).load(Constants.PRODUCT_IMG_PATH+cart.getProduct().getImgs().get(0).getImg_url()).centerInside().resize(300,300).into(holder.imageView);
        holder.textViewName.setText(cart.getProduct().getProduct_name());
 
         SpannableString spannable = new SpannableString("Rs. "+cart.getProduct().getMrp()+" Rs. "+Utils.discountPrice(cart.getProduct().getMrp(),cart.getProduct().getPer_discount()));

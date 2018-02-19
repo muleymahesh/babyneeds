@@ -40,17 +40,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity implements CatgoryAdapter.OnItemClickListener{
+public class CategoryActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    //Creating a List of Category
-    private List<Category> listCategory = new ArrayList<>();
-
-    //Creating Views
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,101 +51,9 @@ public class CategoryActivity extends AppCompatActivity implements CatgoryAdapte
         setContentView(R.layout.activity_category);
         initView();
         initToolbar();
-        getData();
 
 
     }
-
-    private void getData(){
-
-        new CategoryTask(this).execute(Constants.WS_URL,"{\"method\":\"get_all_category\"}");
-    }
-
-    class CategoryTask extends AsyncTask<String, Void,String> {
-
-        ProgressDialog pd;
-
-        public CategoryTask(Context context) {
-            this.pd = pd;
-            pd= new ProgressDialog(context);
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd.setMessage("Loading...");
-            pd.show();
-            pd.setCancelable(false);
-        }
-
-        @Override
-        protected String doInBackground(String... ulr) {
-            Response response = null;
-            OkHttpClient client = new OkHttpClient();
-            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-            Log.e("request",ulr[1]);
-            RequestBody body = RequestBody.create(JSON, ulr[1]);
-            Request request = new Request.Builder()
-                    .url (ulr[0])
-                    .post(body)
-                    .build();
-
-            try {
-                response = client.newCall(request).execute();
-
-                return response.body().string();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(pd!=null && pd.isShowing()){
-                pd.dismiss();
-            }
-            if(s!=null){
-                try {
-                    Log.e("request",s);
-                    parseData(new JSONObject(s).getJSONArray("data"));
-
-                }catch(Exception e)
-                {e.printStackTrace();}
-            }
-        }
-    }
-
-    //This method will parse json data
-    private void parseData(JSONArray array){
-        for(int i = 0; i<array.length(); i++) {
-            Category superHero = new Category();
-            JSONObject json = null;
-            try {
-                json = array.getJSONObject(i);
-                //   superHero.setCat_img(json.getString(Constants.TAG_CAT_IMG));
-                superHero.setCat_img(json.getString(Constants.TAG_CAT_IMG));
-                superHero.setCat_name(json.getString(Constants.TAG_CAT_NAME));
-                superHero.setCat_id(json.getString(Constants.TAG_CAT_ID));
-                ArrayList<String> powers = new ArrayList<String>();
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            listCategory.add(superHero);
-        }
-
-        //Finally initializing our adapter
-//        adapter = new CatgoryAdapter(listCategory, this);
-
-        //Adding adapter to recyclerview
-        recyclerView.setAdapter(adapter);
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -173,9 +74,6 @@ public class CategoryActivity extends AppCompatActivity implements CatgoryAdapte
 
     private void initView() {
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
@@ -186,14 +84,6 @@ public class CategoryActivity extends AppCompatActivity implements CatgoryAdapte
         }
 
 
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        Intent i  = new Intent(this, ProductListActivity.class);
-        i.putExtra("cat_id",listCategory.get(position).getCat_id());
-        i.putExtra("cat_name",listCategory.get(position).getCat_name());
-        startActivity(i);
     }
 
 }

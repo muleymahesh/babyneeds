@@ -97,8 +97,6 @@ public class DrawerListAdapter extends BaseAdapter {
          * The relative.
          */
         public RelativeLayout relative;
-        //  public TextView textView;
-        public RelativeLayout linearLayout;
 
     }
 
@@ -131,8 +129,6 @@ public class DrawerListAdapter extends BaseAdapter {
         holder.relative = (RelativeLayout) convertView
                 .findViewById(R.id.relative_Drawer);
         // holder.textView=(TextView)convertView.findViewById(R.id.textView);
-        holder.linearLayout = (RelativeLayout) convertView.findViewById(R.id.Drawer_Header);
-        holder.relative.setClickable(false);
         convertView.setTag(holder);
 
        /* if (position == 0) {

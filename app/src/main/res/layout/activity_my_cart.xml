@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
+        android:layout_margin="@dimen/eight_dp"
         android:textColor="@color/white"
         android:background="@color/app_primary"
         android:text="PROCEED TO  CHECK OUT"

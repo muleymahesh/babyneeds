@@ -1,22 +1,34 @@
 package com.maks.babyneeds.phase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ListView;
 
+import com.maks.babyneeds.Activity.AboutUsActivity;
+import com.maks.babyneeds.Activity.BrandListActivity;
+import com.maks.babyneeds.Activity.CategoryActivity;
+import com.maks.babyneeds.Activity.FeedbackActivity;
+import com.maks.babyneeds.Activity.MyOrdersActivity;
 import com.maks.babyneeds.Activity.R;
+import com.maks.babyneeds.Activity.ServicesCategoryActivity;
+import com.maks.babyneeds.Activity.NewArrivalActivity;
+import com.maks.babyneeds.phase2.cart.CartFragment;
 import com.maks.babyneeds.phase2.services.ServicesFragment;
 import com.maks.babyneeds.phase2.home.HomeFragment;
 import com.maks.babyneeds.phase2.categories.CategoryFragment;
@@ -30,9 +42,11 @@ import butterknife.ButterKnife;
 public class DashboardActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.navigation) BottomNavigationView navigation;
-    @BindView(R.id.drawerLayout)  DrawerLayout mDrawerLayout;
-    ;
+    @BindView(R.id.navigation) BottomNavigationView bottomNavigation;
+    @BindView(R.id.drawerLayout)  DrawerLayout drawerLayout;
+    @BindView(R.id.nav_view)  NavigationView  navigationView;
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,37 +79,105 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         initToolbar();
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        disableShiftMode(navigation);
+       bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        disableShiftMode(bottomNavigation);
+        initDrawer();
         loadHomeFragment();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START,true);
+                return true;
+
+            case R.id.drawer_home:
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+                return true;
+            case R.id.drawer_new_arrivals:
+
+                startActivity(new Intent(this, NewArrivalActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+            case R.id.drawer_shop_brand:
+
+                startActivity(new Intent(this, BrandListActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+            case R.id.drawer_shop_category:
+
+                startActivity(new Intent(this, CategoryActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+
+            case R.id.drawer_my_orders:
+
+                startActivity(new Intent(this, MyOrdersActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+            case R.id.drawer_services:
+
+                startActivity(new Intent(this, ServicesCategoryActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+            case R.id.drawer_about_us:
+                startActivity(new Intent(this, AboutUsActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+            case R.id.drawer_feedback:
+                startActivity(new Intent(this, FeedbackActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(drawerLayout)){
+            drawerLayout.closeDrawer(GravityCompat.START,true);
+        }else{
+            super.onBackPressed();
+
+        }
+    }
+
     private void initToolbar() {
         if (toolbar != null) {
             toolbar.setTitle("BabyNeeds");
 
             setSupportActionBar(toolbar);
-            mDrawerLayout.setDrawerListener(new ActionBarDrawerToggle(this, mDrawerLayout,
-                    R.string.drawer_open, R.string.drawer_close) {
 
-                /** Called when a drawer has settled in a completely closed state. */
-                public void onDrawerClosed(View view) {
-                    super.onDrawerClosed(view);
-                    getActionBar().setTitle("BabyNeeds");
-                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                }
-
-                /** Called when a drawer has settled in a completely open state. */
-                public void onDrawerOpened(View drawerView) {
-                    super.onDrawerOpened(drawerView);
-                    getActionBar().setTitle("BabyNeeds");
-                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                }
-            });
         }
 
 
     }
+
+    private void initDrawer() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_action_menu);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                return onOptionsItemSelected(item);
+            }
+        });
+    }
+
 
     private void loadHomeFragment() {
         HomeFragment fragment = new HomeFragment();
@@ -113,7 +195,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadOffersFragment() {
-        CategoryFragment fragment = new CategoryFragment();
+        CartFragment fragment = new CartFragment();
         loadFragment(fragment);
     }
     void loadFragment(Fragment fragment){
@@ -123,6 +205,7 @@ public class DashboardActivity extends AppCompatActivity {
         transaction.replace(R.id.main_container, fragment).commit();
 
     }
+
 
     public void disableShiftMode(BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
