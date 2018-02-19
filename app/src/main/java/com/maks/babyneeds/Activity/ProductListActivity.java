@@ -214,6 +214,8 @@ public class ProductListActivity extends AppCompatActivity implements OnItemClic
             new ProductTask().execute(Constants.WS_URL,"{\"method\":\"get_product_by_brand\",\"brand_id\":\""+getIntent().getStringExtra("brand_id")+"\"}");
         }else if(getIntent().hasExtra("getfav")){
             new ProductTask().execute(Constants.WS_URL,"{\"method\":\"get_fav\",\"user_id\":\""+ new AppPreferences(ProductListActivity.this).getEmail()+"\"}");
+        }else if(getIntent().hasExtra("offer_id")){
+            new ProductTask().execute(Constants.WS_URL,"{\"method\":\"get_product_by_offer\",\"offer_id\":\""+getIntent().getStringExtra("offer_id")+"\"}");
         }
         else{
             new ProductTask().execute(Constants.WS_URL,"{\"method\":\"get_product_by_cat\",\"cat_id\":\""+getIntent().getStringExtra("cat_id")+"\"}");
@@ -252,6 +254,8 @@ public class ProductListActivity extends AppCompatActivity implements OnItemClic
                 toolbar.setTitle(""+getIntent().getStringExtra("name"));
             }else if(getIntent().hasExtra("getfav")){
                 toolbar.setTitle("My Favorites");
+            }else if(getIntent().hasExtra("offer_name")){
+                toolbar.setTitle(""+getIntent().getStringExtra("offer_name"));
             }else{
                 toolbar.setTitle(""+getIntent().getStringExtra("cat_name"));
 

@@ -1,77 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="172dp"
+    android:background="@color/app_primary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-<com.maks.babyneeds.Utility.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:scrim="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawerRootLayout"
-    android:layout_width="220dp"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    scrim:scrimInsetForeground="#4000">
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="@dimen/spacing_large"
+        android:elevation="4dp"
+        tools:src="@mipmap/ic_launcher"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/txtDrawerUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtDrawerEmail"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:text="Username"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+    <TextView
+        android:id="@+id/txtDrawerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:text="username@mymail.com"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-        <RelativeLayout
-            android:id="@+id/Drawer_Header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/app_primary"
-            android:clickable="true"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/userProfileImage"
-                android:layout_width="68dp"
-                android:layout_height="68dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:alpha="1"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:id="@+id/txtDrawerUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/userProfileImage"
-                android:gravity="center"
-                android:text="Email"
-                android:textColor="#ffffff"
-                android:textSize="15dp"
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:id="@+id/txtDrawerEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDrawerUserName"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="UserID"
-                android:textColor="#ffffff"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
-
-        <ListView
-            android:id="@+id/left_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Drawer_Header"
-            android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" />
-
-
-
-    </RelativeLayout>
-</com.maks.babyneeds.Utility.ScrimInsetsFrameLayout>
+</RelativeLayout>

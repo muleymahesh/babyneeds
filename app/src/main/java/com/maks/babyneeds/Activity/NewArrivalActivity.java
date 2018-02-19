@@ -34,7 +34,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class WhatsNewActivity extends AppCompatActivity implements ProductAdapter.OnItemClickListener {
+public class NewArrivalActivity extends AppCompatActivity implements ProductAdapter.OnItemClickListener {
 
     private Toolbar toolbar;
     //Creating a List of Category
@@ -55,7 +55,7 @@ public class WhatsNewActivity extends AppCompatActivity implements ProductAdapte
 
         getData();
 
-        adapter = new NewProductAdapter(listProducts, WhatsNewActivity.this);
+        adapter = new NewProductAdapter(listProducts, NewArrivalActivity.this);
 
         //Adding adapter to recyclerview
         recyclerView.setAdapter(adapter);
@@ -146,7 +146,7 @@ public class WhatsNewActivity extends AppCompatActivity implements ProductAdapte
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd= new ProgressDialog(WhatsNewActivity.this);
+            pd= new ProgressDialog(NewArrivalActivity.this);
             pd.setMessage("Loading...");
             pd.show();
             pd.setCancelable(false);

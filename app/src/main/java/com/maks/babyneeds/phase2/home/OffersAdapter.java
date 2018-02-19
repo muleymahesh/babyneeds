@@ -37,9 +37,9 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     OnItemClickListener mItemClickListener;
     //List of Category
     List<Offer> Category;
-    Activity context;
+    HomeFragment context;
 
-    public OffersAdapter(List<Offer> Category, Activity context){
+    public OffersAdapter(List<Offer> Category, HomeFragment context){
         super();
         //Getting all the Category
         this.Category = Category;
@@ -49,7 +49,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_card, parent, false);
+                .inflate(R.layout.list_item_offer, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return viewHolder;
@@ -58,8 +58,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Offer offer = Category.get(position);
-        Picasso.with(context).load(Constants.PRODUCT_IMG_PATH + offer.getOfferImg()).resize(400, 220).centerCrop().into(holder.imageView);
-        holder.textViewName.setText("");
+        Picasso.with(context.getContext()).load(Constants.PRODUCT_IMG_PATH + offer.getOfferImg()).resize(400, 220).centerCrop().into(holder.imageView);
 
     }
 
@@ -71,16 +70,13 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView imageView;
-        public TextView textViewName;
         public  BannerSlider bannerSlider;
         public ViewHolder(View itemView) {
             super(itemView);
 
             imageView = (ImageView) itemView.findViewById(R.id.img);
-            textViewName = (TextView) itemView.findViewById(R.id.title1);
-            if(textViewName!=null){
+            if(imageView !=null){
                 itemView.setOnClickListener(this);
-                textViewName.setTypeface(Utils.setLatoFontBold(context));
             }
 
         }
@@ -88,7 +84,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         @Override
         public void onClick(View v) {
 
-//            context.onItemClick(v,getPosition());
+            context.onItemClick(v,getPosition());
         }
     }
 

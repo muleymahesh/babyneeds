@@ -36,7 +36,6 @@ import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.adapter.CatgoryAdapter;
-import com.maks.babyneeds.adapter.DrawerListAdapter;
 import com.maks.model.BannerPojo;
 import com.maks.model.Category;
 import com.maks.model.HomepageDTO;
@@ -274,13 +273,13 @@ public class MainActivity extends AppCompatActivity implements CatgoryAdapter.On
         txtDrawerEmail.setText(app.getEmail());
         txtDraweruname.setText(app.getFname());
 
-        leftDrawerList = (ListView) findViewById(R.id.left_drawer);
+//        leftDrawerList = (ListView) findViewById(R.id.left_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
 
-        leftDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerItemArray));
-        leftDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+//        leftDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerItemArray));
+//        leftDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
      
     private void initToolbar() {
@@ -325,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements CatgoryAdapter.On
 
             case 1://for new arrivals page
             {
-                Intent intent2 = new Intent(getApplicationContext(), WhatsNewActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), NewArrivalActivity.class);
                 startActivity(intent2);
                 break;
             }

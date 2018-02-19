@@ -1,4 +1,4 @@
-package com.maks.babyneeds.adapter;
+package com.maks.babyneeds.phase2.home;
 
 /**
  * Created by maks on 7/2/16.
@@ -9,15 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maks.babyneeds.Activity.ProductListActivity;
 import com.maks.babyneeds.Activity.R;
-import com.maks.babyneeds.Activity.NewArrivalActivity;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.Utility.Utils;
 import com.maks.model.Product;
@@ -28,20 +27,20 @@ import java.util.List;
 /**
  * Created by Belal on 11/9/2015.
  */
-public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    private NewArrivalActivity context;
+
     OnItemClickListener mItemClickListener;
     //List of Category
     List<Product> Category;
-    Activity activity;
+    HomeFragment activity;
 
-    public NewProductAdapter(List<Product> Category, NewArrivalActivity context){
+    public ProductAdapter(List<Product> Category, HomeFragment context){
         super();
         //Getting all the Category
         this.Category = Category;
-        this.context = context;
-        activity = (Activity)context;
+
+        activity = context;
     }
 
     @Override
@@ -57,17 +56,21 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Product product =  Category.get(position);
-        Log.e("",product.getImgs().get(0).getImg_url());
-        Picasso.with(context).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(0).getImg_url()).centerInside().resize(300,300).placeholder(R.drawable.baby_bg).into(holder.imageView);
+
+if(product.getImgs()!=null && !product.getImgs().isEmpty())
+        Picasso.with(activity.getContext()).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(0).getImg_url()).centerInside().resize(300,300).placeholder(R.drawable.baby_bg).into(holder.imageView);
         holder.textViewName.setText(product.getProduct_name());
 
         holder.textDisc.setText(product.getOffer_name());
 
         if(product.getOffer_name().equalsIgnoreCase("no offer") ){
             holder.textPrice.setText("Rs. " +product.getMrp());
+
             holder.textDisc.setVisibility(View.INVISIBLE);
         } else {
             holder.textDisc.setVisibility(View.VISIBLE);
+//            holder.textDisc.setText(product.getPer_discount() + "%");
+
             try {
 
                 SpannableString spannable = new SpannableString("Rs. " + product.getMrp() + " Rs. " + Utils.discountPrice(product.getMrp(), product.getPer_discount()));
@@ -76,6 +79,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.Vi
             } catch (Exception e) {
             }
         }
+        
     }
 
     @Override
@@ -102,7 +106,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            context.onItemClick(v,getPosition());
+            if(mItemClickListener!=null)mItemClickListener.onItemClick(v,getAdapterPosition());
         }
     }
 

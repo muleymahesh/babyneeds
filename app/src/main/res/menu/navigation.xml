@@ -8,13 +8,13 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_bottombar_offer"
-        android:title="@string/title_category" />
+        android:icon="@drawable/ic_bottombar_cart"
+        android:title="@string/title_cart" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_bottombar_sevices"
-        android:title="@string/title_services" />
+        android:icon="@drawable/ic_bottombar_wishlist"
+        android:title="@string/title_wishlist" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_bottombar_profile"

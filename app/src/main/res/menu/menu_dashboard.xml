@@ -1,0 +1,40 @@
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <group
+            android:id="@+id/top"
+            android:checkableBehavior="single">
+
+            <item
+                android:id="@+id/drawer_home"
+                android:title="@string/title_home"/>
+
+            <item
+                android:id="@+id/drawer_new_arrivals"
+                android:title="@string/title_new_arrivals"/>
+
+            <item
+                android:id="@+id/drawer_shop_brand"
+                android:title="@string/shop_by_brand"/>
+            <item
+                android:id="@+id/drawer_shop_category"
+                android:title="@string/shop_by_category"/>
+            <item
+                android:id="@+id/drawer_my_orders"
+                android:title="@string/my_orders"/>
+        </group>
+
+        <group
+            android:id="@+id/bottom"
+            android:checkableBehavior="single">
+
+            <item
+                android:id="@+id/drawer_services"
+                android:title="@string/services"/>
+            <item
+                android:id="@+id/drawer_about_us"
+                android:title="@string/About_us"/>
+            <item
+                android:id="@+id/drawer_feedback"
+                android:title="@string/feedback"/>
+        </group>
+
+        </menu>

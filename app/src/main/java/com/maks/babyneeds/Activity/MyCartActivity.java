@@ -78,7 +78,7 @@ public class MyCartActivity extends AppCompatActivity {
             }
         }
 
-        adapter = new CartAdapter(list,    MyCartActivity.this);
+//        adapter = new CartAdapter(list,    MyCartActivity.this);
         recyclerView.setAdapter(adapter);
 
         txtRs.setText(String.format( "Rs.  %.2f", grandTotal ));
