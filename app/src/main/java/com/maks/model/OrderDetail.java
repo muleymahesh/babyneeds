@@ -8,8 +8,10 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Generated("org.jsonschema2pojo")
-public class OrderDetail {
+public class OrderDetail implements Serializable{
 
     @SerializedName("qty")
     @Expose

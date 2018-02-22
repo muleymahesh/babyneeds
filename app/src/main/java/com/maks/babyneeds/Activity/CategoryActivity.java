@@ -62,6 +62,10 @@ public class CategoryActivity extends AppCompatActivity {
             startActivity(new Intent(this,MyCartActivity.class));
             return true;
         }
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -81,6 +85,8 @@ public class CategoryActivity extends AppCompatActivity {
         if (toolbar != null) {
             toolbar.setTitle("Baby Needs");
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
 
 

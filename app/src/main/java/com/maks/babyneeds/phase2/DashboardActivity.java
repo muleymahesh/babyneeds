@@ -13,12 +13,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.maks.babyneeds.Activity.AboutUsActivity;
 import com.maks.babyneeds.Activity.BrandListActivity;
@@ -29,9 +27,8 @@ import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Activity.ServicesCategoryActivity;
 import com.maks.babyneeds.Activity.NewArrivalActivity;
 import com.maks.babyneeds.phase2.cart.CartFragment;
-import com.maks.babyneeds.phase2.services.ServicesFragment;
+import com.maks.babyneeds.phase2.services.FavoriteFragment;
 import com.maks.babyneeds.phase2.home.HomeFragment;
-import com.maks.babyneeds.phase2.categories.CategoryFragment;
 import com.maks.babyneeds.phase2.user.UserFragment;
 
 import java.lang.reflect.Field;
@@ -144,7 +141,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(drawerLayout)){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START,true);
         }else{
             super.onBackPressed();
@@ -190,7 +187,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadFavoriteFragment() {
-        ServicesFragment fragment = new ServicesFragment();
+        FavoriteFragment fragment = new FavoriteFragment();
         loadFragment(fragment);
     }
 

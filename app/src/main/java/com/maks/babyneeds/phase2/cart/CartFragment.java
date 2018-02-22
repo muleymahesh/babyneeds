@@ -1,14 +1,10 @@
 package com.maks.babyneeds.phase2.cart;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,31 +15,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.maks.babyneeds.Activity.LoginActivity;
-import com.maks.babyneeds.Activity.MainActivity;
-import com.maks.babyneeds.Activity.MyCartActivity;
 import com.maks.babyneeds.Activity.PlaceOrderActivity;
 import com.maks.babyneeds.Activity.R;
-import com.maks.babyneeds.Activity.ServicesActivity;
 import com.maks.babyneeds.SQLite.SQLiteUtil;
 import com.maks.babyneeds.Utility.AppPreferences;
-import com.maks.babyneeds.Utility.ConnectionDetector;
-import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.Utility.Utils;
 import com.maks.babyneeds.adapter.CartAdapter;
 import com.maks.babyneeds.phase2.DashboardActivity;
-import com.maks.babyneeds.phase2.services.ServicesCatgoryAdapter;
 import com.maks.model.CartList;
-import com.maks.model.ServicesCategory;
-import com.maks.model.ServicesCategoryDTO;
+import com.maks.model.Product;
 import com.maks.model.ShoppingCart;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +36,9 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends Fragment implements ServicesCatgoryAdapter.OnItemClickListener{
+public class CartFragment extends Fragment implements
+
+        CartAdapter.OnItemClickListener {
 
     private RecyclerView.Adapter adapter;
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
@@ -103,7 +89,7 @@ public class CartFragment extends Fragment implements ServicesCatgoryAdapter.OnI
                     if (btnCheckout.getText().equals("Start Shopping")) {
                         Intent intent = new Intent(getActivity(), DashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                        startActivity(intent);
+//                        startActivity(intent);
 
                     } else {
 
@@ -138,7 +124,6 @@ public class CartFragment extends Fragment implements ServicesCatgoryAdapter.OnI
 
                     totalAmt = mrp * Integer.parseInt(list.get(i).getQuantity());
                     grandTotal = grandTotal + totalAmt;
-
                     String item = list.get(i).getProduct().getShort_desc().toString();
                     Log.e("TAG", "My Cart:::Item: " + item);
 

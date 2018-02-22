@@ -20,16 +20,22 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.maks.babyneeds.Activity.BrandListActivity;
+import com.maks.babyneeds.Activity.CategoryActivity;
+import com.maks.babyneeds.Activity.OffersActivity;
+import com.maks.babyneeds.Activity.ProductDetailScreenActivity;
 import com.maks.babyneeds.Activity.ProductListActivity;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
-import com.maks.babyneeds.adapter.CatgoryAdapter;
-import com.maks.babyneeds.phase2.DashboardActivity;
 import com.maks.model.BannerPojo;
+import com.maks.model.Brand;
+import com.maks.model.BrandDTO;
 import com.maks.model.Category;
+import com.maks.model.CategoryDTO;
 import com.maks.model.HomepageDTO;
 import com.maks.model.Offer;
+import com.maks.model.Product;
 import com.maks.model.ProductDTO;
 
 import java.util.ArrayList;
@@ -37,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
@@ -46,10 +53,16 @@ import ss.com.bannerslider.views.BannerSlider;
 public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClickListener{
     @BindView(R.id.recyclerView) RecyclerView offersRecyclerView;
     @BindView(R.id.recommendrecyclerView) RecyclerView recommendRecyclerView;
+    @BindView(R.id.brandsRecyclerView) RecyclerView branndsRecyclerView;
+    @BindView(R.id.categoryRecyclerView) RecyclerView categoryRecyclerView;
     @BindView(R.id.banner_slider1) BannerSlider bannerSlider;
 
     private GridLayoutManager layoutManager;
-    private RecyclerView.Adapter productAdapter,offersAdapter;
+    private ProductAdapter productAdapter;
+    OffersAdapter offersAdapter;
+            ;
+    BrandAdapter brandsAdapter;
+    CatgoryAdapter categoryAdapter;
     private List<Offer> listOffers = new ArrayList<>();
     List<BannerPojo> bannerList = new ArrayList<>();
 
@@ -75,6 +88,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         ButterKnife.bind(this, view);
         getBannerOfferData();
         setUpRecyclerView();
+
         return view;
     }
 
@@ -84,22 +98,44 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
        offersRecyclerView.setLayoutManager(layoutManager);
        offersRecyclerView.setItemAnimator(new DefaultItemAnimator());
        offersRecyclerView.setNestedScrollingEnabled(false);
-        offersAdapter  = new OffersAdapter(listOffers,this);
+        offersAdapter  = new OffersAdapter(listOffers,this.getContext());
         offersRecyclerView.setAdapter(offersAdapter);
 
 
     }
-
+@OnClick(R.id.offer_more)
+    public void onOfferClick(){
+    startActivity(new Intent(getActivity(), OffersActivity.class));
+    }
+    @OnClick(R.id.brand_more)
+    public void onBrandClick(){
+        startActivity(new Intent(getActivity(), BrandListActivity.class));
+    }
+    @OnClick(R.id.category_more)
+    public void onCategoryClick(){
+        startActivity(new Intent(getActivity(), CategoryActivity.class));
+    }
 
     private void parseData(String array){
         bannerList.clear();
         listOffers.clear();
         HomepageDTO dto = new Gson().fromJson(array,HomepageDTO.class);
         bannerList.addAll(dto.getData());
-        listOffers.addAll(dto.getOffer_data());
+        for (int i = 0; i < (dto.getOffer_data().size()>4 ? 4 : dto.getOffer_data().size()); i++) {
+
+            listOffers.add(dto.getOffer_data().get(i));
+        }
         //Finally initializing our adapter
         setUpBanners();
-
+        offersAdapter.setOnItemClickListener(new OffersAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent i  = new Intent(getActivity(), ProductListActivity.class);
+                i.putExtra("offer_id",listOffers.get(position).getOfferId());
+                i.putExtra("offer_name",listOffers.get(position).getName());
+                startActivity(i);
+            }
+        });
         offersAdapter.notifyDataSetChanged();
 
     }
@@ -173,7 +209,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                 try {
                                     Log.e("response",result.toString());
 
-                                        ProductDTO arr = new Gson().fromJson(result.toString(), ProductDTO.class);
+                                        final ProductDTO arr = new Gson().fromJson(result.toString(), ProductDTO.class);
 
                                     //Adding adapter to recyclerview
                                     LinearLayoutManager playoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -184,6 +220,121 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     productAdapter  = new ProductAdapter(arr.getData(),HomeFragment.this);
                                     //Adding adapter to recyclerview
                                     recommendRecyclerView.setAdapter(productAdapter);
+                                    productAdapter.SetOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(View view, int position) {
+                                            Product product = arr.getData().get(position);
+                                            Intent intent=new Intent(getActivity(),ProductDetailScreenActivity.class);
+                                            intent.putExtra("product", product);
+                                            startActivity(intent);
+
+                                        }
+                                    });
+                                }catch(Exception ex)
+                                {ex.printStackTrace();}
+                            }
+                            getBrandsData();
+                        }
+                    });
+
+        }else{
+            Toast.makeText(getContext(), "You are offline!.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getBrandsData(){
+        if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
+            final ProgressDialog pd = new ProgressDialog(getActivity());
+            JsonObject json = new JsonObject();
+            json.addProperty("method", "get_all_brand");
+
+            Ion.with(getContext())
+                    .load(Constants.WS_URL)
+                    .setJsonObjectBody(json)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            // do stuff with the result or error
+                            if(e==null){
+                                try {
+                                    Log.e("response",result.toString());
+
+                                    final BrandDTO arr = new Gson().fromJson(result.toString(), BrandDTO.class);
+
+                                    //Adding adapter to recyclerview
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
+
+                                    branndsRecyclerView.setLayoutManager(playoutManager);
+                                    branndsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                                    branndsRecyclerView.setNestedScrollingEnabled(false);
+                                    brandsAdapter  = new BrandAdapter(arr.getData(),HomeFragment.this);
+                                    //Adding adapter to recyclerview
+                                    brandsAdapter.setOnItemClickListener(new BrandAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(View view, int position) {
+                                            Brand product = arr.getData().get(position);
+                                            Intent intent=new Intent(getActivity(),ProductListActivity.class);
+                                            intent.putExtra("brand_id", product.getBrandId());
+                                            intent.putExtra("name",arr.getData().get(position).getName());
+
+                                            startActivity(intent);
+
+                                        }
+                                    });
+                                    branndsRecyclerView.setAdapter(brandsAdapter);
+
+                                }catch(Exception ex)
+                                {ex.printStackTrace();}
+                            }
+                            getCategoryData();
+                        }
+                    });
+
+        }else{
+            Toast.makeText(getContext(), "You are offline!.", Toast.LENGTH_SHORT).show();
+        }
+    }
+ private void getCategoryData(){
+        if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
+            final ProgressDialog pd = new ProgressDialog(getActivity());
+            JsonObject json = new JsonObject();
+            json.addProperty("method", "get_all_category");
+
+            Ion.with(getContext())
+                    .load(Constants.WS_URL)
+                    .setJsonObjectBody(json)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            // do stuff with the result or error
+                            if(e==null){
+                                try {
+                                    Log.e("response",result.toString());
+
+                                    final CategoryDTO arr = new Gson().fromJson(result.toString(), CategoryDTO.class);
+
+                                    //Adding adapter to recyclerview
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
+
+                                    categoryRecyclerView.setLayoutManager(playoutManager);
+                                    categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                                    categoryRecyclerView.setNestedScrollingEnabled(false);
+                                    categoryAdapter = new CatgoryAdapter(arr.getData().subList(0,5),HomeFragment.this);
+                                    //Adding adapter to recyclerview
+                                    categoryAdapter.setOnItemClickListener(new CatgoryAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(View view, int position) {
+
+                                            Intent i  = new Intent(getActivity(), ProductListActivity.class);
+                                            i.putExtra("cat_id",arr.getData().get(position).getCat_id());
+                                            i.putExtra("cat_name",arr.getData().get(position).getCat_name());
+                                            startActivity(i);
+
+                                        }
+                                    });
+                                    categoryRecyclerView.setAdapter(categoryAdapter);
 
                                 }catch(Exception ex)
                                 {ex.printStackTrace();}

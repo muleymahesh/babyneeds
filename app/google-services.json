@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1063542947486:android:5f45a68b42d179cd",
         "android_client_info": {
-          "package_name": "com.maks.babyneeds"
+          "package_name": "com.maks.babyneeds1"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1063542947486-bhk1m7ndv450p4mkblrrso8300ckg94n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.maks.babyneeds",
+            "package_name": "com.maks.babyneeds1",
             "certificate_hash": "D2C8763D68A25A20AB4244A456BA4798A925D2B2"
           }
         },

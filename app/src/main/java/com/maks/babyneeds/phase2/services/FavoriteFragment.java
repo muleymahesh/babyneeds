@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,13 +18,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.maks.babyneeds.Activity.ProductDetailScreenActivity;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Activity.ServicesActivity;
-import com.maks.babyneeds.Activity.ServicesCategoryActivity;
+import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
-import com.maks.model.ServicesCategory;
-import com.maks.model.ServicesCategoryDTO;
+import com.maks.babyneeds.adapter.ProductAdapter;
+import com.maks.model.Product;
+import com.maks.model.ProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +38,19 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter.OnItemClickListener{
+public class FavoriteFragment extends Fragment implements FavProductAdapter.OnItemClickListener{
 
-    private List<ServicesCategory> listCategory = new ArrayList<>();
+    private List<Product> listCategory = new ArrayList<>();
     //Creating Views
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
-    public ServicesFragment() {
+    public FavoriteFragment() {
         // Required empty public constructor
     }
-    public static ServicesFragment newInstance() {
-        ServicesFragment fragment = new ServicesFragment();
+    public static FavoriteFragment newInstance() {
+        FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
     }
 
@@ -57,11 +60,14 @@ public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_favourite, container, false);
         ButterKnife.bind(this,view);
-        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        getData();
+        if(new AppPreferences(getActivity()).isLogin()){
+            getData();
+        }else{
+            Toast.makeText(getContext(), "Login to see your wishlist items", Toast.LENGTH_SHORT).show();
+        }
         return view;
 
     }
@@ -70,7 +76,8 @@ public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter
         if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
             final ProgressDialog pd = new ProgressDialog(getActivity());
             JsonObject json = new JsonObject();
-            json.addProperty("method", "get_services_category");
+            json.addProperty("method", "get_fav");
+            json.addProperty("user_id", new AppPreferences(getContext()).getEmail());
 
             pd.show();
 
@@ -86,11 +93,13 @@ public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter
                                 pd.dismiss();
                             }
                             if(e==null){
-                                ServicesCategoryDTO dto = new Gson().fromJson(result,ServicesCategoryDTO.class);
+                                ProductDTO dto = new Gson().fromJson(result,ProductDTO.class);
 
                                 listCategory.addAll(dto.getData());
-
-                                adapter = new ServicesCatgoryAdapter(listCategory,ServicesFragment.this);
+                                   if(listCategory.isEmpty()){
+                                       Toast.makeText(getContext(), "No data. Click Heart on product detail to add to Wishlist", Toast.LENGTH_SHORT).show();
+                                   }
+                                adapter = new FavProductAdapter(listCategory,FavoriteFragment.this);
 
                                 recyclerView.setAdapter(adapter);
                             }
@@ -104,9 +113,9 @@ public class ServicesFragment extends Fragment implements ServicesCatgoryAdapter
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent i  = new Intent(getActivity(), ServicesActivity.class);
-        i.putExtra("cat_id",listCategory.get(position).getId());
-        i.putExtra("cat_name",listCategory.get(position).getCategory());
-        startActivity(i);
+        Product product = listCategory.get(position);
+        Intent intent=new Intent(getActivity(),ProductDetailScreenActivity.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
     }
 }

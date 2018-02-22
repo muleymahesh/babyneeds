@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ShoppingCart implements Serializable{
     private String id;
     private String product_id;
-   private Product product;
+    private Product product;
     private String quantity;
 
     public ShoppingCart() {

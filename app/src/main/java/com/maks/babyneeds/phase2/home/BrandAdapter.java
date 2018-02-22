@@ -5,42 +5,34 @@ package com.maks.babyneeds.phase2.home;
  * Created by maks on 7/2/16.
  */
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Utility.Constants;
-import com.maks.babyneeds.Utility.Utils;
-import com.maks.model.BannerPojo;
-import com.maks.model.Category;
+import com.maks.model.Brand;
 import com.maks.model.Offer;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ss.com.bannerslider.banners.Banner;
-import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
 
 /**
  * Created by Belal on 11/9/2015.
  */
-public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder> {
+public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> {
 
     // private CategoryActivity context;
     OnItemClickListener mItemClickListener;
     //List of Category
-    List<Offer> Category;
-    Context context;
+    List<Brand> Category;
+    HomeFragment context;
 
-    public OffersAdapter(List<Offer> Category, Context context){
+    public BrandAdapter(List<Brand> Category, HomeFragment context){
         super();
         //Getting all the Category
         this.Category = Category;
@@ -58,15 +50,15 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Offer offer = Category.get(position);
-        Picasso.with(context).load(Constants.PRODUCT_IMG_PATH + offer.getOfferImg()).into(holder.imageView);
+        Brand offer = Category.get(position);
+            Picasso.with(context.getContext()).load(Constants.PRODUCT_IMG_PATH + offer.getBrandImg()).into(holder.imageView);
 
     }
 
     @Override
     public int getItemCount() {
 
-        return Category.size();
+        return Category.size()>4 ? 4 :Category.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -76,8 +68,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
             super(itemView);
 
             imageView = (ImageView) itemView.findViewById(R.id.img);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             if(imageView !=null){
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 itemView.setOnClickListener(this);
             }
 
@@ -86,7 +78,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         @Override
         public void onClick(View v) {
             if(mItemClickListener!=null){
-                mItemClickListener.onItemClick(v,getAdapterPosition());
+                mItemClickListener.onItemClick(v,getPosition());
             }
         }
     }
@@ -96,7 +88,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         public void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListener( OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 }

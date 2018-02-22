@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.maks.babyneeds.Utility.Constants;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class ProductDTO implements Serializable
     @SerializedName("responseCode")
     String responseCode;
     @SerializedName("data")
-    List<Product> data;
+    List<Product> data =new ArrayList<>();
 
     public String getResult() {
         return result;
