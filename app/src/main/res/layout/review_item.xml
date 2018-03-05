@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
@@ -17,30 +17,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 <RatingBar
+    android:id="@+id/rbRating"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:rating="4"
     style="@style/Base.Widget.AppCompat.RatingBar.Small"
     />
         <TextView
+            android:id="@+id/txtRating"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="4/5"/>
         <TextView
+            android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="April 17,2017"/>
 
     </LinearLayout>
     <TextView
-        android:id="@+id/user"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItemSmall"
         android:text="Erik small"/>
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/txtReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItemSmall"

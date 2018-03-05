@@ -152,7 +152,8 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".OffersActivity"></activity>
+        <activity android:name=".OffersActivity" />
+        <activity android:name=".ReviewActivity"></activity>
     </application>
 
 </manifest>

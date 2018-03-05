@@ -43,7 +43,7 @@ public class FavoriteFragment extends Fragment implements FavProductAdapter.OnIt
     private List<Product> listCategory = new ArrayList<>();
     //Creating Views
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
-    private GridLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
     public FavoriteFragment() {
@@ -97,7 +97,7 @@ public class FavoriteFragment extends Fragment implements FavProductAdapter.OnIt
 
                                 listCategory.addAll(dto.getData());
                                    if(listCategory.isEmpty()){
-                                       Toast.makeText(getContext(), "No data. Click Heart on product detail to add to Wishlist", Toast.LENGTH_SHORT).show();
+//                                       Toast.makeText(getContext(), "No data. Click Heart on product detail to add to Wishlist", Toast.LENGTH_SHORT).show();
                                    }
                                 adapter = new FavProductAdapter(listCategory,FavoriteFragment.this);
 
