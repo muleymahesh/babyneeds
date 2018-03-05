@@ -68,10 +68,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.google.android.gms:play-services:9.0.2'
-    //noinspection GradleCompatible
-    compile 'com.android.support:appcompat-v7:25.+'
-    //noinspection GradleCompatible
-    compile 'com.android.support:design:25.+'
+
+
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     apply plugin: 'com.google.gms.google-services'
     compile 'com.ss.bannerslider:bannerslider:1.8.0'

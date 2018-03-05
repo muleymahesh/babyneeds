@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background_gradient_end"
     tools:context="com.maks.babyneeds.Activity.ProductDetailScreenActivity">
 
     <include layout="@layout/toolbar" />
@@ -20,7 +21,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:background="@drawable/rounded_rect"
+    android:background="@drawable/card_background"
     android:layout_height="wrap_content">
 
 
@@ -73,6 +74,51 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/fav_unselected"
         />
+    <LinearLayout
+        android:layout_below="@+id/viewpager"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:isIndicator="true" />
+        <TextView
+            android:id="@+id/txtRating"
+            android:layout_marginLeft="@dimen/eight_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(5)"
+            />
+        <TextView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="|"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">Line
+            <TextView
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:text="Reviews"/>
+
+            <TextView
+                android:id="@+id/txtNumReview"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(0)"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
@@ -82,7 +128,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                 android:layout_margin="15dp"
+                 android:layout_marginTop="8dp"
+                    android:padding="@dimen/eight_dp"
+                    android:background="@drawable/card_background"
                    >
 
                     <TextView
@@ -131,12 +179,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                      >
 
                         <TextView
                             android:id="@+id/txtBrand"
@@ -204,7 +246,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/app_text"
-                                android:text="QUANTITY : "
+                                android:text="Add to cart : "
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:textStyle="bold" />
 
@@ -241,24 +283,23 @@
                                 android:padding="5dp" />
                         </LinearLayout>
 
-                    </LinearLayout>
-
+                    <Button
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:id="@+id/addToCartButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:background="@color/app_primary"
+                        android:gravity="center"
+                        android:text="  Add To Cart  "
+                        android:layout_below="@+id/quantity"
+                        android:layout_centerHorizontal="true" />
 
                 </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-    <Button
-        android:id="@+id/addToCartButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:background="@color/app_primary"
-        android:gravity="center"
-        android:text="  Add To Cart  "
-        android:layout_below="@+id/quantity"
-        android:layout_centerHorizontal="true" />
 
 </LinearLayout>

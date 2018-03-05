@@ -56,6 +56,12 @@ public class Product  implements Serializable
     @SerializedName("is_fav")
     String isFav;
 
+    @SerializedName("reviews")
+    String reviews;
+
+    @SerializedName("avg_rating")
+    String avgRating;
+
     @SerializedName("imgs")
     List<ProductImage> imgs;
     public List<ProductImage> getImgs() {
@@ -226,6 +232,22 @@ public class Product  implements Serializable
         this.per_discount = per_discount;
     else
             this.per_discount =""+0;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
+    }
+
+    public String getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(String avgRating) {
+        this.avgRating = avgRating;
     }
 
     public String getStock() {

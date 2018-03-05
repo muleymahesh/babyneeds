@@ -11,40 +11,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <include layout="@layout/banner_slider"/>
-            <RelativeLayout
-                android:layout_margin="@dimen/eight_dp"
-                android:background="@drawable/card_shadow"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/offer"
                     android:layout_margin="@dimen/eight_dp"
-                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/app_text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="Latest Offers"/>
-                <Button
-                    android:layout_marginRight="@dimen/eight_dp"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/offer_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    />
+                    android:text="Offers"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:id="@+id/recyclerView"
                     android:padding="@dimen/eight_dp"
-                    android:layout_below="@+id/offer_more"
+                    android:layout_below="@+id/offer"
+                    android:layout_above="@+id/offer_more"
                     android:layout_height="wrap_content"
                     />
-            </RelativeLayout>
-            <RelativeLayout
 
-                android:layout_margin="@dimen/eight_dp"
-                android:background="@drawable/card_shadow"
+                <Button
+                    android:layout_below="@+id/recyclerView"
+                    android:layout_margin="@dimen/eight_dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/offer_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View all offers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    />
+            </LinearLayout>
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -64,8 +65,6 @@
                     />
             </RelativeLayout>
             <RelativeLayout
-                android:background="@drawable/card_shadow"
-                android:layout_margin="@dimen/eight_dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -94,8 +93,6 @@
                     />
             </RelativeLayout>
             <RelativeLayout
-                android:background="@drawable/card_shadow"
-                android:layout_margin="@dimen/eight_dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView

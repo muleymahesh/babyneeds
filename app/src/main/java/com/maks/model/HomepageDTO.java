@@ -7,6 +7,7 @@ package com.maks.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -40,7 +41,9 @@ public class HomepageDTO {
         this.responseCode = responseCode;
     }
 
-    public List<Offer> getOffer_data() { return offer_data;}
+    public List<Offer> getOffer_data() {
+        Collections.shuffle(offer_data);
+        return offer_data;}
 
     public void setOffer_data(List<Offer> offer_data) {
         this.offer_data = offer_data;

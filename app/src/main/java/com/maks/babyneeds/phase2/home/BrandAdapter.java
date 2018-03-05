@@ -42,7 +42,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_offer, parent, false);
+                .inflate(R.layout.list_item_brand_card, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return viewHolder;
@@ -58,7 +58,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
 
-        return Category.size()>4 ? 4 :Category.size();
+        return Category.size()>6 ? 6 :Category.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

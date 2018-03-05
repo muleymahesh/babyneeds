@@ -39,6 +39,7 @@ import com.maks.model.Product;
 import com.maks.model.ProductDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,8 +94,14 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
     }
 
     private void setUpRecyclerView() {
-
+        Collections.shuffle(listOffers);
         layoutManager = new GridLayoutManager(getContext(),2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position % 3 == 0 ? 2 : 1);
+            }
+        });
        offersRecyclerView.setLayoutManager(layoutManager);
        offersRecyclerView.setItemAnimator(new DefaultItemAnimator());
        offersRecyclerView.setNestedScrollingEnabled(false);
@@ -147,7 +154,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         for (BannerPojo b: bannerList
              ) {
             RemoteBanner banner = new RemoteBanner(Constants.PRODUCT_IMG_PATH+b.getImagePath());
-            banner.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            banner.setScaleType(ImageView.ScaleType.FIT_CENTER);
             banners.add(banner);
         }
 
@@ -212,7 +219,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                         final ProductDTO arr = new Gson().fromJson(result.toString(), ProductDTO.class);
 
                                     //Adding adapter to recyclerview
-                                    LinearLayoutManager playoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+                                    LinearLayoutManager playoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
 
                                     recommendRecyclerView.setLayoutManager(playoutManager);
                                     recommendRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -263,7 +270,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     final BrandDTO arr = new Gson().fromJson(result.toString(), BrandDTO.class);
 
                                     //Adding adapter to recyclerview
-                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),3);
 
                                     branndsRecyclerView.setLayoutManager(playoutManager);
                                     branndsRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -316,7 +323,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     final CategoryDTO arr = new Gson().fromJson(result.toString(), CategoryDTO.class);
 
                                     //Adding adapter to recyclerview
-                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),1);
 
                                     categoryRecyclerView.setLayoutManager(playoutManager);
                                     categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -8,7 +8,7 @@
     <ss.com.bannerslider.views.BannerSlider
         android:id="@+id/banner_slider1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         app:loopSlides="true"
         app:interval="5000"
         android:layout_marginBottom="@dimen/fab_margin"

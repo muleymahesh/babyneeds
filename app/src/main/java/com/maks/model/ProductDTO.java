@@ -5,6 +5,7 @@ import com.maks.babyneeds.Utility.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class ProductDTO implements Serializable
     }
 
     public List<Product> getData() {
+        Collections.shuffle(data);
         return data;
     }
 

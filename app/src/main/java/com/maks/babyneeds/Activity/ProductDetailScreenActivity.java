@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +51,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ProductDetailScreenActivity extends AppCompatActivity {
     private Product product;
     private ImageView imgViewq, btnPlus, btnMinus;
     private TextView txtName, txtShortDesc, txtLongDesc, mrp, offer, size, brand;
-    private TextView txtQuantity, stock, expiry;
+    private TextView txtQuantity, stock, expiry, review , rating;
+    RatingBar ratingBar;
     Button btnAddToCart, add_to_fav;
     private Toolbar toolbar;
     CustomPagerAdapter adapter;
@@ -64,10 +69,11 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFont();
+
         setContentView(R.layout.activity_product_detail_screen);
         initToolbar();
         initView();
-//        setFont();
 
     }
 
@@ -304,21 +310,34 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         mrp = (TextView) findViewById(R.id.txtMrp);
         stock = (TextView) findViewById(R.id.txtStock);
         expiry = (TextView) findViewById(R.id.txtExpiry);
+        review = (TextView) findViewById(R.id.txtNumReview);
+        rating = (TextView) findViewById(R.id.txtRating);
         add_to_fav = (Button) findViewById(R.id.add_to_fav);
         txtQuantity = (TextView) findViewById(R.id.quantity);
         btnAddToCart = (Button) findViewById(R.id.addToCartButton);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBar);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     private void setFont() {
-        txtName.setTypeface(Utils.setLatoFont(this));
-        mrp.setTypeface(Utils.setLatoFont(this));
-        size.setTypeface(Utils.setLatoFont(this));
-        brand.setTypeface(Utils.setLatoFont(this));
-        offer.setTypeface(Utils.setLatoFont(this));
-        txtShortDesc.setTypeface(Utils.setLatoFont(this));
-        txtLongDesc.setTypeface(Utils.setLatoFont(this));
-        stock.setTypeface(Utils.setLatoFont(this));
-        btnAddToCart.setTypeface(Utils.setLatoFont(this));
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/Roboto_Regular.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build());
+
+        //        txtName.setTypeface(Utils.setLatoFont(this));
+//        mrp.setTypeface(Utils.setLatoFont(this));
+//        size.setTypeface(Utils.setLatoFont(this));
+//        brand.setTypeface(Utils.setLatoFont(this));
+//        offer.setTypeface(Utils.setLatoFont(this));
+//        txtShortDesc.setTypeface(Utils.setLatoFont(this));
+//        txtLongDesc.setTypeface(Utils.setLatoFont(this));
+//        stock.setTypeface(Utils.setLatoFont(this));
+//        btnAddToCart.setTypeface(Utils.setLatoFont(this));
     }
 
     private void initToolbar() {
@@ -401,7 +420,11 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
 //        offer.setText(""+(product.getPer_discount())+"%");
 
-
+        review.setText(""+(product.getReviews()));
+        rating.setText(""+(product.getAvgRating())+"/5");
+        try {
+            ratingBar.setRating(Float.valueOf(product.getAvgRating()));
+        }catch (Exception e){e.printStackTrace();}
     }
 
     public String getIntentData() {
