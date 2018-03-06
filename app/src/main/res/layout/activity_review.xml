@@ -7,16 +7,17 @@
     android:orientation="vertical"
     tools:context="com.maks.babyneeds.Activity.ReviewActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"/>
+  <include layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+  <android.support.v7.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:id="@+id/btnWriteReview"
+      android:text="Write Review"/>
+  </LinearLayout>

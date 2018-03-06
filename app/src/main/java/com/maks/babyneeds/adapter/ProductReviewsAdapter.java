@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.maks.babyneeds.Activity.R;
@@ -55,6 +56,7 @@ public class ProductReviewsAdapter extends RecyclerView.Adapter<ProductReviewsAd
         holder.txtDate.setText(review.getReviewDate());
         holder.txtTitle.setText(review.getTitle());
         holder.txtRating.setText(review.getRating()+"/5");
+        holder.rbRating.setRating(Integer.parseInt(review.getRating()));
         holder.txtName.setText(review.getReviewerName());
         holder.txtReview.setText(review.getReview());
     }
@@ -81,6 +83,7 @@ public class ProductReviewsAdapter extends RecyclerView.Adapter<ProductReviewsAd
 
         @Override
         public void onClick(View v) {
+
             context.onItemClick(v,getPosition());
         }
     }

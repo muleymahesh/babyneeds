@@ -51,6 +51,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -316,8 +317,25 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         txtQuantity = (TextView) findViewById(R.id.quantity);
         btnAddToCart = (Button) findViewById(R.id.addToCartButton);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+        review.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
+                i.putExtra("p_id",product.getP_id());
+
+                startActivity(i);
+
+            }
+        });
     }
 
+    @OnClick(R.id.llreview)
+    public void onClick(){
+        Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
+        i.putExtra("p_id",product.getP_id());
+        startActivity(i);
+    }
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -420,8 +438,9 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
 //        offer.setText(""+(product.getPer_discount())+"%");
 
-        review.setText(""+(product.getReviews()));
-        rating.setText(""+(product.getAvgRating())+"/5");
+        review.setText("("+product.getReviews()+")");
+        rating.setText(""+Integer.parseInt(product.getAvgRating())+"/5");
+        ratingBar.setRating(Integer.parseInt(product.getAvgRating()));
         try {
             ratingBar.setRating(Float.valueOf(product.getAvgRating()));
         }catch (Exception e){e.printStackTrace();}

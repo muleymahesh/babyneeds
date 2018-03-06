@@ -53,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         Product product =  Category.get(position);
 
@@ -78,6 +78,12 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
                 holder.textPrice.setText(spannable);
             } catch (Exception e) {
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mItemClickListener!=null)mItemClickListener.onItemClick(v,position);
+                }
+            });
         }
         
     }
@@ -92,10 +98,10 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
         public TextView textViewName;
         public TextView textPrice;
         public TextView textDisc;
-
+        View itemView;
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+            this.itemView = itemView;
             imageView = (ImageView) itemView.findViewById(R.id.img);
             textViewName = (TextView) itemView.findViewById(R.id.title1);
             textDisc = (TextView) itemView.findViewById(R.id.discount);
@@ -106,7 +112,7 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
 
         @Override
         public void onClick(View v) {
-            if(mItemClickListener!=null)mItemClickListener.onItemClick(v,getAdapterPosition());
+
         }
     }
 

@@ -10,18 +10,17 @@ android {
             storePassword 'babyneeds'
         }
     }
-
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
-
     defaultConfig {
         applicationId "com.maks.babyneeds1"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 11
         versionName "1.1"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -33,13 +32,19 @@ android {
 //            signingConfig signingConfigs.config
         }
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    productFlavors {
+    }
 }
+
 
 
 
@@ -69,8 +74,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.google.android.gms:play-services:9.0.2'
-
-
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     apply plugin: 'com.google.gms.google-services'
     compile 'com.ss.bannerslider:bannerslider:1.8.0'

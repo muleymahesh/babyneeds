@@ -38,7 +38,6 @@ public class ProductDTO implements Serializable
     }
 
     public List<Product> getData() {
-        Collections.shuffle(data);
         return data;
     }
 

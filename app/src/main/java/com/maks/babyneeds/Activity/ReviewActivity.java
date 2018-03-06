@@ -1,40 +1,116 @@
 package com.maks.babyneeds.Activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.adapter.ProductReviewsAdapter;
 import com.maks.babyneeds.phase2.services.FavProductAdapter;
 import com.maks.babyneeds.phase2.services.FavoriteFragment;
+import com.maks.model.Review;
 import com.maks.model.ReviewDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.OnClick;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ReviewActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private GridLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-
-
+List<Review> listCategory=new ArrayList<>();
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFont();
         setContentView(R.layout.activity_review);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false  );
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        initToolbar();
+        getData();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+    private void setFont() {
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto_Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
+
+    }
+
+@OnClick(R.id.btnWriteReview)
+public void onWriteReview(){
+    Intent i = new Intent(ReviewActivity.this,WriteReviewActivity.class);
+    i.putExtra("p_id",getIntent().getStringExtra("p_id"));
+    startActivity(i);
+}
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle("Product Reviews");
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this,MyCartActivity.class));
+            return true;
+        }
+
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
     private void getData(){
-        if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
-            final ProgressDialog pd = new ProgressDialog(getActivity());
+        if(new ConnectionDetector(this).isConnectingToInternet()) {
+            final ProgressDialog pd = new ProgressDialog(this);
             JsonObject json = new JsonObject();
-            json.addProperty("method", "get_product_review");
+            json.addProperty("method", "get_product_rating");
             json.addProperty("p_id", getIntent().getStringExtra("p_id"));
 
             pd.show();
 
-            Ion.with(getContext())
+            Ion.with(this)
                     .load(Constants.WS_URL)
                     .setJsonObjectBody(json)
                     .asJsonObject()
@@ -60,7 +136,10 @@ public class ReviewActivity extends AppCompatActivity {
                     });
 
         }else{
-            Toast.makeText(getContext(), "You are offline!.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You are offline!.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onItemClick(View v, int position) {
     }
 }

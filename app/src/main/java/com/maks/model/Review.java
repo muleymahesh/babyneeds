@@ -4,6 +4,7 @@ package com.maks.model;
  * Created by maks on 5/3/18.
  */
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.maks.babyneeds.Utility.Constants;
 

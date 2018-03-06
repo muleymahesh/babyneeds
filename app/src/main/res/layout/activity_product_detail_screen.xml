@@ -89,7 +89,6 @@
             android:isIndicator="true" />
         <TextView
             android:id="@+id/txtRating"
-            android:layout_marginLeft="@dimen/eight_dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(5)"
@@ -101,21 +100,22 @@
             android:layout_height="wrap_content"
             android:text="|"/>
         <LinearLayout
+            android:id="@+id/llreview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">Line
+            android:layout_height="wrap_content">
             <TextView
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="all"
+                android:textColor="@color/app_text_secondary"
                 android:text="Reviews"/>
 
             <TextView
                 android:id="@+id/txtNumReview"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/app_text_secondary"
                 android:text="(0)"/>
         </LinearLayout>
     </LinearLayout>
