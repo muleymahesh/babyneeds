@@ -219,7 +219,6 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         }
     }
 
-
     private void setListeners() {
 
         btnMinus.setOnClickListener(new View.OnClickListener() {
@@ -336,6 +335,14 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         i.putExtra("p_id",product.getP_id());
         startActivity(i);
     }
+    @OnClick(R.id.writeReview)
+    public void onWriteReview(){
+        Intent i = new Intent(ProductDetailScreenActivity.this,WriteReviewActivity.class);
+        i.putExtra("product",product);
+        startActivity(i);
+    }
+
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

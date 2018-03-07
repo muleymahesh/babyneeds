@@ -173,14 +173,29 @@
                             android:id="@+id/long_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_margin="5dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:text="Long Descriptionaaaa" />
 
+                        <Button
+                            android:id="@+id/writeReview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Write a review"
+                            android:textAllCaps="false"/>
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textStyle="bold"
+                        android:text="Item detail" />
 
-                        <TextView
+
+                    <TextView
+                        android:layout_marginTop="@dimen/eight_dp"
                             android:id="@+id/txtBrand"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"

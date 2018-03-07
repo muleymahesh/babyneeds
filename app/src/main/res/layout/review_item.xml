@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
-        android:textAppearance="?attr/textAppearanceListItem"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text="Super Cool"
         />
     <LinearLayout
@@ -32,6 +32,8 @@
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+
             android:layout_height="wrap_content"
             android:text="April 17,2017"/>
 
@@ -40,13 +42,13 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItemSmall"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text="Erik small"/>
     <TextView
         android:id="@+id/txtReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItemSmall"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:text="100% payment protection . 7 days easy return policy and super fast delivery."/>
 
 </LinearLayout>

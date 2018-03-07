@@ -69,12 +69,6 @@ List<Review> listCategory=new ArrayList<>();
 
     }
 
-@OnClick(R.id.btnWriteReview)
-public void onWriteReview(){
-    Intent i = new Intent(ReviewActivity.this,WriteReviewActivity.class);
-    i.putExtra("p_id",getIntent().getStringExtra("p_id"));
-    startActivity(i);
-}
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);

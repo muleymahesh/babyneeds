@@ -1,55 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-   >
+    tools:context="com.maks.babyneeds.Activity.WriteReviewActivity">
 
-    <include layout="@layout/toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/toolbar"/>
+        <RelativeLayout
+            android:padding="@dimen/eight_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/card_background"
+                android:id="@+id/imgProduct"
+                android:layout_width="90dp"
+                android:layout_height="90dp" />
+            <TextView
+                android:layout_marginTop="@dimen/eight_dp"
+                android:layout_toRightOf="@id/imgProduct"
+                android:id="@+id/txtProductName"
+                android:text="Product name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"/>
 
 
-        <LinearLayout
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_toRightOf="@id/imgProduct"
+            android:layout_below="@id/txtProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:numStars="5"
+
+            android:rating="1"
+            android:stepSize="1" />
+        </RelativeLayout>
+        <TextView
+            android:layout_margin="@dimen/eight_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Write a review"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <EditText
+            android:layout_margin="@dimen/eight_dp"
+            android:id="@+id/etReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <EditText
-                    android:id="@+id/etTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="title"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <EditText
-                    android:id="@+id/etReview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="write review"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
+            android:ems="10"
+            android:background="@drawable/card_background"
+            android:hint="Write your review here"
+            android:inputType="textPersonName"
+            />
 
 
-        </LinearLayout>
+        <TextView
+            android:layout_margin="@dimen/eight_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Headline for  your review"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/buttonSueview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/app_primary"
-        android:textColor="#ffffff"
-        android:padding="12dp"
-        android:text="Register" />
-</LinearLayout>
+        <EditText
+            android:layout_margin="@dimen/eight_dp"
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:padding="@dimen/eight_dp"
+            android:background="@drawable/card_background"
+            android:hint="Add text here"
+            android:inputType="textPersonName"
+            />
+
+        <Button
+            android:layout_margin="@dimen/eight_dp"
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_primary"
+            android:textColor="@color/white"
+            android:text="Submit" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
