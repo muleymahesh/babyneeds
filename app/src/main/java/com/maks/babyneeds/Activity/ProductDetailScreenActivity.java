@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -61,21 +63,23 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     private TextView txtName, txtShortDesc, txtLongDesc, mrp, offer, size, brand;
     private TextView txtQuantity, stock, expiry, review , rating;
     RatingBar ratingBar;
-    Button btnAddToCart, add_to_fav;
+    Button btnAddToCart, add_to_fav,writereview;
     private Toolbar toolbar;
     CustomPagerAdapter adapter;
+    LinearLayout llreview;
     ViewPager viewPager;
     boolean isFav = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFont();
 
         setContentView(R.layout.activity_product_detail_screen);
+
+        setFont();
         initToolbar();
         initView();
-
+        setListeners();
     }
 
     @Override
@@ -119,40 +123,6 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         }
 
     }
-    public static class Tab1 extends Fragment {
-
-        //Overriden method onCreateView
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-            //Returning the layout file after inflating
-            //Change R.layout.tab1 in you classes
-            ImageView v = (ImageView) inflater.inflate(R.layout.pager_item, container, false);
-            v.setBackgroundColor(Color.WHITE);
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final Dialog d = new Dialog(getActivity());
-
-                    d.setContentView(R.layout.zoom_img);
-                    Button close = (Button) d.findViewById(R.id.close);
-                    close.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            d.dismiss();
-                        }
-                    });
-                    ZoomableImageView imgZoom = (ZoomableImageView) d.findViewById(R.id.imgZoom);
-                    Picasso.with(getContext()).load(Constants.PRODUCT_IMG_PATH + getArguments().getString("url")).resize(getActivity().getWindow().getWindowManager().getDefaultDisplay().getWidth(), getActivity().getWindow().getWindowManager().getDefaultDisplay().getHeight()).centerInside().placeholder(R.drawable.baby_bg).error(R.mipmap.ic_launcher).into(imgZoom);
-                    d.show();
-                }
-            });
-            Picasso.with(getContext()).load(Constants.PRODUCT_IMG_PATH + getArguments().getString("url")).resize(400, 400).centerInside().placeholder(R.drawable.baby_bg).error(R.mipmap.ic_launcher).into(v);
-
-            return v;
-        }
-
-    }
 
     private void parseData(String array){
 
@@ -160,8 +130,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
             ProductDTO arr = new Gson().fromJson(array.toString(), ProductDTO.class);
             product = arr.getData().get(0);
             isFav = product.getIsFav().equals("true") ? true : false;
-            setView();
             setListeners();
+            setView();
 
         }catch (Exception e){e.printStackTrace();}//Finally initializig our adapter
 
@@ -220,6 +190,27 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
+
+
+        writereview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProductDetailScreenActivity.this,WriteReviewActivity.class);
+                i.putExtra("product",product);
+                startActivity(i);
+
+            }
+        });
+        llreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
+                i.putExtra("p_id",product.getP_id());
+                startActivity(i);
+
+            }
+        });
 
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,7 +275,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
                     if (!isFav) {
                         new AddToFavTask(ProductDetailScreenActivity.this).execute(Constants.WS_URL, "{\"method\":\"add_fav\",\"user_id\":\"" + new AppPreferences(ProductDetailScreenActivity.this).getEmail() + "\",\"p_id\":\"" + product.getP_id() + "\"}");
-                        } else {
+                    } else {
                         new RemoveFromFavTask(ProductDetailScreenActivity.this).execute(Constants.WS_URL, "{\"method\":\"delete_fav\",\"user_id\":\"" + new AppPreferences(ProductDetailScreenActivity.this).getEmail() + "\",\"p_id\":\"" + product.getP_id() + "\"}");
                     }
                 } else {
@@ -312,35 +303,27 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         expiry = (TextView) findViewById(R.id.txtExpiry);
         review = (TextView) findViewById(R.id.txtNumReview);
         rating = (TextView) findViewById(R.id.txtRating);
+        llreview = (LinearLayout) findViewById(R.id.llreview);
         add_to_fav = (Button) findViewById(R.id.add_to_fav);
+        writereview = (Button) findViewById(R.id.writeReview);
         txtQuantity = (TextView) findViewById(R.id.quantity);
         btnAddToCart = (Button) findViewById(R.id.addToCartButton);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
-        review.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
-                i.putExtra("p_id",product.getP_id());
-
-                startActivity(i);
-
-            }
-        });
     }
 
-    @OnClick(R.id.llreview)
-    public void onClick(){
-        Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
-        i.putExtra("p_id",product.getP_id());
-        startActivity(i);
-    }
-    @OnClick(R.id.writeReview)
-    public void onWriteReview(){
-        Intent i = new Intent(ProductDetailScreenActivity.this,WriteReviewActivity.class);
-        i.putExtra("product",product);
-        startActivity(i);
-    }
+//    @OnClick(R.id.llreview)
+//    public void onClick(){
+//        Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
+//        i.putExtra("p_id",product.getP_id());
+//        startActivity(i);
+//    }
+//    @OnClick(R.id.writeReview)
+//    public void onWriteReview(){
+//        Intent i = new Intent(ProductDetailScreenActivity.this,WriteReviewActivity.class);
+//        i.putExtra("product",product);
+//        startActivity(i);
+//    }
 
 
     @Override
@@ -350,19 +333,10 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     private void setFont() {
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Roboto_Regular.ttf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build());
+                .setDefaultFontPath("fonts/Roboto_Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
 
-        //        txtName.setTypeface(Utils.setLatoFont(this));
-//        mrp.setTypeface(Utils.setLatoFont(this));
-//        size.setTypeface(Utils.setLatoFont(this));
-//        brand.setTypeface(Utils.setLatoFont(this));
-//        offer.setTypeface(Utils.setLatoFont(this));
-//        txtShortDesc.setTypeface(Utils.setLatoFont(this));
-//        txtLongDesc.setTypeface(Utils.setLatoFont(this));
-//        stock.setTypeface(Utils.setLatoFont(this));
-//        btnAddToCart.setTypeface(Utils.setLatoFont(this));
     }
 
     private void initToolbar() {
@@ -393,8 +367,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         txtName.setText(product.getProduct_name());
         txtShortDesc.setText(product.getShort_desc());
         txtLongDesc.setText(product.getShort_desc() + "\n" + product.getLong_desc());
-        brand.setText("Brand : " + product.getBrand_name());
-        size.setText("Size : " + product.getSize());
+        brand.setText("Brand        : " + product.getBrand_name());
+        size.setText("Size         : " + product.getSize());
         if (product.getSize().contains("NA")) {
             size.setVisibility(View.GONE);
         }
@@ -406,7 +380,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         if (product.getOffer_name().equalsIgnoreCase("no offer")) {
             offer.setVisibility(View.INVISIBLE);
-            mrp.setText("Price : Rs. " + product.getMrp());
+            mrp.setText("Price         : Rs. " + product.getMrp());
 
         } else {
             offer.setText(product.getPer_discount() + "%");
@@ -415,7 +389,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
                 SpannableString spannable = new SpannableString("Rs. " + product.getMrp() + " Rs. " + Utils.discountPrice(product.getMrp(), product.getPer_discount()));
                 spannable.setSpan(new StrikethroughSpan(), 0, product.getMrp().length() + 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                mrp.setText("Price : ");
+                mrp.setText("Price         : ");
                 mrp.append(spannable);
 
 
@@ -428,17 +402,17 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         if (product.getStock().equals("0")) {
 
-            stock.setText("In stock : Out of stock \n call on +9891850708 to arrange to for this item");
+            stock.setText("In stock      : Out of stock \n call on +9891850708 to arrange to for this item");
             btnMinus.setVisibility(View.INVISIBLE);
             btnPlus.setVisibility(View.INVISIBLE);
             txtQuantity.setVisibility(View.INVISIBLE);
 
         } else {
-            stock.setText("In stock : " + product.getStock());
+            stock.setText("In stock      :  " + product.getStock());
 
         }
         if (product.getExpiry_date().equals("NA")) expiry.setVisibility(View.GONE);
-        else expiry.setText("Expiry date : " + product.getExpiry_date());
+        else expiry.setText("Expiry date: " + product.getExpiry_date());
 
 //        if(product.getFav.equals("NA") )  expiry.setVisibility(View.GONE);
 //        else expiry.setText("Expiry date : "+product.getExpiry_date());
@@ -446,10 +420,9 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 //        offer.setText(""+(product.getPer_discount())+"%");
 
         review.setText("("+product.getReviews()+")");
-        rating.setText(""+Integer.parseInt(product.getAvgRating())+"/5");
-        ratingBar.setRating(Integer.parseInt(product.getAvgRating()));
+        rating.setText(""+Math.round(Float.valueOf(product.getAvgRating()))+"/5");
         try {
-            ratingBar.setRating(Float.valueOf(product.getAvgRating()));
+            ratingBar.setRating(Math.round(Float.valueOf(product.getAvgRating())));
         }catch (Exception e){e.printStackTrace();}
     }
 

@@ -48,12 +48,18 @@ public class MyOrdersActivity  extends AppCompatActivity implements ProductAdapt
         initToolbar();
         initView();
 
-        getData();
 
         adapter = new MyOrderListAdapter(listCategory, MyOrdersActivity.this);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        //Adding adapter to recyclerview
         recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
 
     }
 

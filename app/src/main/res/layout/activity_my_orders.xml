@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:background="@drawable/card_state_pressed"
+        android:background="@color/app_primary"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="Amount"
@@ -24,9 +24,20 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="6dp">
 
     </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btncancelorder"
+        android:background="@drawable/card_state_pressed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:padding="12dp"
+        android:text="Cancel order"
+        android:textColor="#fff" />
+
 
 </LinearLayout>
