@@ -1,11 +1,14 @@
 package com.maks.babyneeds.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,12 +46,38 @@ public class WriteReviewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         try {
             product = (Product) getIntent().getSerializableExtra("product");
-            Picasso.with(this).load(Constants.PRODUCT_IMG_PATH+product.getImg_url()).into(imgProduct);
+            Picasso.with(this).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(0).getImg_url()).placeholder(R.drawable.baby_bg).error(R.drawable.baby_bg).into(imgProduct);
             txtProductName.setText(product.getProduct_name());
 
         }catch (Exception e){}
     }
 
+
+    private void initToolbar() {
+        Toolbar   toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle("Product review");
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.action_settings: {
+                startActivity(new Intent(this, MyCartActivity.class));
+                return true;
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
     @OnClick(R.id.btnSubmit)
     public void submit(){
         JsonObject json = new JsonObject();
@@ -59,7 +88,8 @@ public class WriteReviewActivity extends AppCompatActivity {
         json.addProperty("user_id", new AppPreferences(this).getEmail());
         json.addProperty("name", new AppPreferences(this).getFname());
         json.addProperty("title",etTitle.getText().toString() );
-
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.show();
         Ion.with(this)
                 .load(Constants.WS_URL)
                 .setJsonObjectBody(json)
@@ -67,6 +97,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                  pd.dismiss();
                         // do stuff with the result or error
                         if(e==null){
                             try {

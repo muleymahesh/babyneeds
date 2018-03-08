@@ -58,7 +58,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
 
-        return Category.size()>6 ? 6 :Category.size();
+        return Category.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

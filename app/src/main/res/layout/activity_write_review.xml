@@ -35,14 +35,12 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
-            android:layout_toRightOf="@id/imgProduct"
-            android:layout_below="@id/txtProductName"
+            android:layout_below="@id/imgProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:numStars="5"
-
             android:rating="1"
             android:stepSize="1" />
         </RelativeLayout>
@@ -60,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:background="@drawable/card_background"
+            android:gravity="start"
+            android:background="@android:drawable/editbox_background"
             android:hint="Write your review here"
             android:inputType="textPersonName"
             />
@@ -80,8 +79,8 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:padding="@dimen/eight_dp"
-            android:background="@drawable/card_background"
-            android:hint="Add text here"
+            android:background="@android:drawable/editbox_background"
+            android:hint="Add headline here"
             android:inputType="textPersonName"
             />
 
