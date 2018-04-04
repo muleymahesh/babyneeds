@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:background="#f0f0f0"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -13,7 +14,165 @@
             <include layout="@layout/banner_slider"/>
             <LinearLayout
                 android:orientation="vertical"
+                android:layout_margin="@dimen/eight_dp"
+                android:background="@drawable/card_background"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/newA"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/eight_dp"
+                    android:text="Your recommendations"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/background_gradient_end"
+                        android:layout_marginLeft="@dimen/eight_dp"
+                        android:layout_marginRight="@dimen/eight_dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/recommendrecyclerView"
+                    android:padding="@dimen/eight_dp"
+                    android:layout_below="@+id/newA"
+                    android:layout_height="wrap_content"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <TextView
+                    android:id="@+id/recommend_more"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/eight_dp"
+                    android:autoLink="web"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_action_next"
+                    android:textColor="@color/fastlane_background"
+                    android:text="See more"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:background="@drawable/card_background"
+                android:layout_marginRight="@dimen/eight_dp"
+                android:layout_marginLeft="@dimen/eight_dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/brand"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/eight_dp"
+                    android:text="Upto 25% off on top brands"/>
+
+                <View
+                    android:id="@+id/topline"
+                    android:layout_below="@+id/brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/brandsRecyclerView"
+                    android:padding="@dimen/eight_dp"
+                    android:layout_below="@+id/topline"
+                    android:layout_height="wrap_content"
+                    />
+
+                <View
+                    android:id="@+id/bottomline"
+                    android:layout_below="@+id/brandsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <TextView
+                    android:layout_below="@+id/bottomline"
+                    android:layout_marginRight="@dimen/eight_dp"
+                    android:id="@+id/brand_more"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/eight_dp"
+                    android:autoLink="web"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_action_next"
+                    android:textColor="@color/fastlane_background"
+                    android:text="See more" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="@dimen/eight_dp"
+                android:background="@drawable/card_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_margin="@dimen/eight_dp"
+                    android:text="Categories you may like"/>
+                <View
+                    android:id="@+id/topline1"
+                    android:layout_below="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/categoryRecyclerView"
+                    android:layout_below="@+id/topline1"
+                    android:layout_height="wrap_content"
+                    />
+
+                <View
+                    android:id="@+id/bottomline1"
+                    android:layout_below="@+id/categoryRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <TextView
+                    android:layout_below="@+id/bottomline1"
+                    android:id="@+id/category_more"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/eight_dp"
+                    android:autoLink="web"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_action_next"
+                    android:textColor="@color/fastlane_background"
+                    android:text="See more"/>
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_marginRight="@dimen/eight_dp"
+                android:layout_marginLeft="@dimen/eight_dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/card_background"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/offer"
@@ -24,102 +183,43 @@
                     android:textColor="@color/app_text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:text="Offers"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:id="@+id/recyclerView"
                     android:padding="@dimen/eight_dp"
+                    android:nestedScrollingEnabled="false"
                     android:layout_below="@+id/offer"
                     android:layout_above="@+id/offer_more"
                     android:layout_height="wrap_content"
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
 
                 <Button
+                    android:visibility="invisible"
                     android:layout_below="@+id/recyclerView"
                     android:layout_margin="@dimen/eight_dp"
                     android:layout_alignParentRight="true"
                     android:id="@+id/offer_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="View all offers"
+                    android:text="More offers "
+                    android:drawableRight="@drawable/ic_action_next"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     />
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/newA"
-                    android:layout_margin="@dimen/eight_dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Arrival"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:id="@+id/recommendrecyclerView"
-                    android:padding="@dimen/eight_dp"
-                    android:layout_below="@+id/newA"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/brand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_margin="@dimen/eight_dp"
-                    android:text="Shop by brands"/>
-                <Button
-                    android:layout_marginRight="@dimen/eight_dp"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/brand_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:id="@+id/brandsRecyclerView"
-                    android:padding="@dimen/eight_dp"
-                    android:layout_below="@+id/brand_more"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_margin="@dimen/eight_dp"
-                    android:text="Shop by Category"/>
-                <Button
-                    android:layout_marginRight="@dimen/eight_dp"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/category_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    />
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:id="@+id/categoryRecyclerView"
-                    android:padding="@dimen/eight_dp"
-                    android:layout_below="@+id/category_more"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

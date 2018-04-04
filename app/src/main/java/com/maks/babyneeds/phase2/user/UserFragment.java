@@ -49,6 +49,14 @@ public class UserFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
         ButterKnife.bind(this,v);
+
+
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if(new AppPreferences(getActivity()).isLogin()) {
             txtEmail.setText(new AppPreferences(getActivity()).getEmail());
             txtName.setText(new AppPreferences(getActivity()).getFname());
@@ -57,8 +65,6 @@ public class UserFragment extends Fragment {
             txtEmail.setText("");
             txtName.setText("Welcome Guest");
         }
-
-        return v;
     }
 
     @OnClick(R.id.btnMyOrders)

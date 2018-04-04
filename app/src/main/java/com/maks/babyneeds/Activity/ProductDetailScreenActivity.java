@@ -1,5 +1,7 @@
 package com.maks.babyneeds.Activity;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -24,6 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,8 +42,10 @@ import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.Utility.Utils;
 import com.maks.babyneeds.Utility.ZoomableImageView;
+import com.maks.model.BannerPojo;
 import com.maks.model.Product;
 import com.maks.model.ProductDTO;
+import com.maks.model.ProductImage;
 import com.maks.model.ShoppingCart;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -51,9 +57,15 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.events.OnBannerClickListener;
+import ss.com.bannerslider.views.BannerSlider;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -65,9 +77,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Button btnAddToCart, add_to_fav,writereview;
     private Toolbar toolbar;
-    CustomPagerAdapter adapter;
     LinearLayout llreview;
-    ViewPager viewPager;
+    BannerSlider viewPager;
     boolean isFav = false;
 
     @Override
@@ -89,40 +100,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     }
 
 
-    public class CustomPagerAdapter extends PagerAdapter {
 
-        private Context mContext;
-
-        public CustomPagerAdapter(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            ImageView img  = (ImageView) inflater.inflate(R.layout.pager_item, collection, false);
-            Picasso.with(ProductDetailScreenActivity.this).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(position).getImg_url()).placeholder(R.drawable.baby_bg).error(R.drawable.baby_bg).into(img);
-
-            collection.addView(img);
-            return img;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
-        }
-
-        @Override
-        public int getCount() {
-            return product.getImgs().size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-    }
 
     private void parseData(String array){
 
@@ -206,7 +184,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
-                i.putExtra("p_id",product.getP_id());
+                i.putExtra("product",product);
                 startActivity(i);
 
             }
@@ -288,7 +266,17 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (BannerSlider) findViewById(R.id.viewpager);
+        viewPager.setOnBannerClickListener(new OnBannerClickListener() {
+
+            @Override
+            public void onClick(int position) {
+                Intent intent =new Intent(ProductDetailScreenActivity.this,ImageZoomActivity.class);
+                intent.putExtra("url",Constants.PRODUCT_IMG_PATH+product.getImgs().get(position).getImg_url());
+                startActivity(intent);
+
+            }
+        });
 //        imgView=(ImageView)findViewById(R.id.img);
         btnPlus = (ImageView) findViewById(R.id.btnPlus);
         btnMinus = (ImageView) findViewById(R.id.btnMinus);
@@ -311,19 +299,6 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
     }
-
-//    @OnClick(R.id.llreview)
-//    public void onClick(){
-//        Intent i = new Intent(ProductDetailScreenActivity.this,ReviewActivity.class);
-//        i.putExtra("p_id",product.getP_id());
-//        startActivity(i);
-//    }
-//    @OnClick(R.id.writeReview)
-//    public void onWriteReview(){
-//        Intent i = new Intent(ProductDetailScreenActivity.this,WriteReviewActivity.class);
-//        i.putExtra("product",product);
-//        startActivity(i);
-//    }
 
 
     @Override
@@ -353,12 +328,17 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         try {
 
-            //     Picasso.with(getBaseContext()).load(Constants.PRODUCT_IMG_PATH + product.getImgs().get(0).getImg_url()).resize(400, 300).error(R.drawable.baby_bg).centerInside().into(imgView);
-            adapter = new CustomPagerAdapter(ProductDetailScreenActivity.this);
-            viewPager.setAdapter(adapter);
 
+                List<Banner> banners=new ArrayList<>();
+                //add banner using image url
+                for (ProductImage b: product.getImgs()
+                        ) {
+                    RemoteBanner banner = new RemoteBanner(Constants.PRODUCT_IMG_PATH+b.getImg_url());
+                    banner.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    banners.add(banner);
+                }
 
-
+                viewPager.setBanners(banners);
         } catch (Exception e) {
             Log.e("", Constants.PRODUCT_IMG_PATH + product.getImgs().toString());
             e.printStackTrace();
@@ -367,8 +347,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
         txtName.setText(product.getProduct_name());
         txtShortDesc.setText(product.getShort_desc());
         txtLongDesc.setText(product.getShort_desc() + "\n" + product.getLong_desc());
-        brand.setText("Brand        : " + product.getBrand_name());
-        size.setText("Size         : " + product.getSize());
+        brand.setText("Brand          : " + product.getBrand_name());
+        size.setText("Size           : " + product.getSize());
         if (product.getSize().contains("NA")) {
             size.setVisibility(View.GONE);
         }
@@ -380,7 +360,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         if (product.getOffer_name().equalsIgnoreCase("no offer")) {
             offer.setVisibility(View.INVISIBLE);
-            mrp.setText("Price         : Rs. " + product.getMrp());
+            mrp.setText("Price           : Rs. " + product.getMrp());
 
         } else {
             offer.setText(product.getPer_discount() + "%");
@@ -389,7 +369,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
                 SpannableString spannable = new SpannableString("Rs. " + product.getMrp() + " Rs. " + Utils.discountPrice(product.getMrp(), product.getPer_discount()));
                 spannable.setSpan(new StrikethroughSpan(), 0, product.getMrp().length() + 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                mrp.setText("Price         : ");
+                mrp.setText("Price           : ");
                 mrp.append(spannable);
 
 
@@ -409,10 +389,21 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         } else {
             stock.setText("In stock      :  " + product.getStock());
-
+            stock.setVisibility(View.GONE);
         }
-        if (product.getExpiry_date().equals("NA")) expiry.setVisibility(View.GONE);
-        else expiry.setText("Expiry date: " + product.getExpiry_date());
+        if (product.getExpiry_date().equals("NA")) {
+            expiry.setVisibility(View.GONE);
+        }
+        else{
+            expiry.setText("Expiry date : " + product.getExpiry_date());
+
+            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(500); //You can manage the blinking time with this parameter
+            anim.setStartOffset(20);
+            anim.setRepeatMode(Animation.REVERSE);
+            anim.setRepeatCount(Animation.INFINITE);
+            expiry.startAnimation(anim);
+        }
 
 //        if(product.getFav.equals("NA") )  expiry.setVisibility(View.GONE);
 //        else expiry.setText("Expiry date : "+product.getExpiry_date());
@@ -420,8 +411,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 //        offer.setText(""+(product.getPer_discount())+"%");
 
         review.setText("("+product.getReviews()+")");
-        rating.setText(""+Math.round(Float.valueOf(product.getAvgRating()))+"/5");
         try {
+            rating.setText(""+Math.round(Float.valueOf(product.getAvgRating()))+"/5");
             ratingBar.setRating(Math.round(Float.valueOf(product.getAvgRating())));
         }catch (Exception e){e.printStackTrace();}
     }

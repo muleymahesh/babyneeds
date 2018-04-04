@@ -26,16 +26,16 @@ import ss.com.bannerslider.views.BannerSlider;
  */
 public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> {
 
-    // private CategoryActivity context;
+    // private brandListActivity context;
     OnItemClickListener mItemClickListener;
-    //List of Category
-    List<Brand> Category;
+    //List of brandList
+    List<Brand> brandList;
     HomeFragment context;
 
-    public BrandAdapter(List<Brand> Category, HomeFragment context){
+    public BrandAdapter(List<Brand> brandList, HomeFragment context){
         super();
-        //Getting all the Category
-        this.Category = Category;
+        //Getting all the brandList
+        this.brandList = brandList;
         this.context =context;
     }
 
@@ -50,7 +50,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Brand offer = Category.get(position);
+        Brand offer = brandList.get(position);
             Picasso.with(context.getContext()).load(Constants.PRODUCT_IMG_PATH + offer.getBrandImg()).into(holder.imageView);
 
     }
@@ -58,7 +58,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
 
-        return Category.size();
+        return brandList.size()>6 ? 6 : brandList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

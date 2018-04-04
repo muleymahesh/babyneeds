@@ -31,14 +31,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
     OnItemClickListener mItemClickListener;
-    //List of Category
-    List<Product> Category;
+    //List of recommendList
+    List<Product> recommendList;
     HomeFragment activity;
 
-    public ProductAdapter(List<Product> Category, HomeFragment context){
+    public ProductAdapter(List<Product> recommendList, HomeFragment context){
         super();
-        //Getting all the Category
-        this.Category = Category;
+        //Getting all the recommendList
+        this.recommendList = recommendList;
 
         activity = context;
     }
@@ -55,7 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        Product product =  Category.get(position);
+        Product product =  recommendList.get(position);
 
 if(product.getImgs()!=null && !product.getImgs().isEmpty())
         Picasso.with(activity.getContext()).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(0).getImg_url()).centerInside().resize(300,300).placeholder(R.drawable.baby_bg).into(holder.imageView);
@@ -76,21 +76,23 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
                 SpannableString spannable = new SpannableString("Rs. " + product.getMrp() + " Rs. " + Utils.discountPrice(product.getMrp(), product.getPer_discount()));
                 spannable.setSpan(new StrikethroughSpan(), 0, product.getMrp().length() + 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 holder.textPrice.setText(spannable);
+
             } catch (Exception e) {
             }
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mItemClickListener!=null)mItemClickListener.onItemClick(v,position);
                 }
             });
-        }
+
         
     }
 
     @Override
     public int getItemCount() {
-        return Category.size();
+        return recommendList.size()>8 ? 8 : recommendList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -106,7 +108,6 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
             textViewName = (TextView) itemView.findViewById(R.id.title1);
             textDisc = (TextView) itemView.findViewById(R.id.discount);
             textPrice = (TextView) itemView.findViewById(R.id.price);
-//            textViewName.setTypeface(Utils.setLatoFontBold(activity));
 
         }
 
@@ -117,7 +118,7 @@ if(product.getImgs()!=null && !product.getImgs().isEmpty())
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

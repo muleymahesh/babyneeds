@@ -42,7 +42,6 @@ public class HomepageDTO {
     }
 
     public List<Offer> getOffer_data() {
-        Collections.shuffle(offer_data);
         return offer_data;}
 
     public void setOffer_data(List<Offer> offer_data) {

@@ -21,7 +21,6 @@ import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.SQLite.SQLiteUtil;
 import com.maks.babyneeds.Utility.AppPreferences;
 import com.maks.babyneeds.Utility.Utils;
-import com.maks.babyneeds.adapter.CartAdapter;
 import com.maks.babyneeds.phase2.DashboardActivity;
 import com.maks.model.CartList;
 import com.maks.model.Product;
@@ -70,7 +69,7 @@ public class CartFragment extends Fragment implements
 
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getActivity(),2);
+        layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
 
         dbUtil = new SQLiteUtil();
@@ -133,7 +132,7 @@ public class CartFragment extends Fragment implements
             }
         }
 
-        adapter = new CartAdapter(list,    this);
+        adapter = new CartAdapter(list, this);
         recyclerView.setAdapter(adapter);
 
         txtRs.setText(String.format( "Rs.  %.2f", grandTotal ));

@@ -37,13 +37,13 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     // private CategoryActivity context;
     OnItemClickListener mItemClickListener;
     //List of Category
-    List<Offer> Category;
+    List<Offer> offersList;
     Context context;
 
-    public OffersAdapter(List<Offer> Category, Context context){
+    public OffersAdapter(List<Offer> offersList, Context context){
         super();
-        //Getting all the Category
-        this.Category = Category;
+        //Getting all the offersList
+        this.offersList = offersList;
         this.context =context;
     }
 
@@ -58,7 +58,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Offer offer = Category.get(position);
+        Offer offer = offersList.get(position);
         Picasso.with(context).load(Constants.PRODUCT_IMG_PATH + offer.getOfferImg()).into(holder.imageView);
 
     }
@@ -66,7 +66,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
     @Override
     public int getItemCount() {
 
-        return Category.size();
+        return offersList.size()>5 ? 5 : offersList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

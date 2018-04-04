@@ -55,6 +55,10 @@
     <string name="feedbacktype2">Gripe</string>
     <string name="feedbacktype3">Suggestion</string>
     <string name="feedbacktype4">Bug</string>
+    <string name="default_notification_channel_id">babyneeds</string>
+
+    <string name="facebook_app_id">645248432304646</string>
+    <string name="fb_login_protocol_scheme">fb645248432304646</string>
 
 
 </resources>

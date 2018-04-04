@@ -60,7 +60,7 @@ public class FavoriteFragment extends Fragment implements FavProductAdapter.OnIt
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_favourite, container, false);
         ButterKnife.bind(this,view);
-        layoutManager = new GridLayoutManager(getActivity(),2);
+        layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         if(new AppPreferences(getActivity()).isLogin()){

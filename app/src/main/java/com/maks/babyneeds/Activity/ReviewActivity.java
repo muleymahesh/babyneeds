@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.adapter.ProductReviewsAdapter;
 import com.maks.babyneeds.phase2.services.FavProductAdapter;
 import com.maks.babyneeds.phase2.services.FavoriteFragment;
+import com.maks.model.Product;
 import com.maks.model.Review;
 import com.maks.model.ReviewDTO;
 
@@ -41,6 +43,8 @@ public class ReviewActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 List<Review> listCategory=new ArrayList<>();
     Toolbar toolbar;
+    Product product;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,18 @@ List<Review> listCategory=new ArrayList<>();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        button = (Button)findViewById(R.id.btnWriteReview);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ReviewActivity.this,WriteReviewActivity.class);
+                i.putExtra("product",product);
+                startActivity(i);
+
+            }
+        });
         initToolbar();
+        product = (Product) getIntent().getSerializableExtra("product");
         getData();
     }
 
@@ -100,7 +115,7 @@ List<Review> listCategory=new ArrayList<>();
             final ProgressDialog pd = new ProgressDialog(this);
             JsonObject json = new JsonObject();
             json.addProperty("method", "get_product_rating");
-            json.addProperty("p_id", getIntent().getStringExtra("p_id"));
+            json.addProperty("p_id", product.getP_id());
 
             pd.show();
 

@@ -22,6 +22,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.maks.babyneeds.Activity.BrandListActivity;
 import com.maks.babyneeds.Activity.CategoryActivity;
+import com.maks.babyneeds.Activity.NewArrivalActivity;
 import com.maks.babyneeds.Activity.OffersActivity;
 import com.maks.babyneeds.Activity.ProductDetailScreenActivity;
 import com.maks.babyneeds.Activity.ProductListActivity;
@@ -88,25 +89,28 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         getBannerOfferData();
-        setUpRecyclerView();
+
 
         return view;
     }
 
     private void setUpRecyclerView() {
-        Collections.shuffle(listOffers);
-        layoutManager = new GridLayoutManager(getContext(),2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (position % 3 == 0 ? 2 : 1);
-            }
-        });
-       offersRecyclerView.setLayoutManager(layoutManager);
-       offersRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        layoutManager = new GridLayoutManager(getContext(),2);
+//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return (position % 3 == 0 ? 2 : 1);
+//            }
+//        });
+
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+       offersRecyclerView.setLayoutManager(lm);
+
        offersRecyclerView.setNestedScrollingEnabled(false);
         offersAdapter  = new OffersAdapter(listOffers,this.getContext());
+        offersRecyclerView.setNestedScrollingEnabled(false);
         offersRecyclerView.setAdapter(offersAdapter);
+        offersAdapter.notifyDataSetChanged();
 
 
     }
@@ -118,6 +122,10 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
     public void onBrandClick(){
         startActivity(new Intent(getActivity(), BrandListActivity.class));
     }
+    @OnClick(R.id.recommend_more)
+    public void onRecommentClick(){
+        startActivity(new Intent(getActivity(), NewArrivalActivity.class));
+    }
     @OnClick(R.id.category_more)
     public void onCategoryClick(){
         startActivity(new Intent(getActivity(), CategoryActivity.class));
@@ -128,12 +136,10 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         listOffers.clear();
         HomepageDTO dto = new Gson().fromJson(array,HomepageDTO.class);
         bannerList.addAll(dto.getData());
-        for (int i = 0; i < (dto.getOffer_data().size()>4 ? 4 : dto.getOffer_data().size()); i++) {
-
-            listOffers.add(dto.getOffer_data().get(i));
-        }
+        listOffers.addAll(dto.getOffer_data());
         //Finally initializing our adapter
         setUpBanners();
+        setUpRecyclerView();
         offersAdapter.setOnItemClickListener(new OffersAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -202,7 +208,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
             final ProgressDialog pd = new ProgressDialog(getActivity());
             JsonObject json = new JsonObject();
-            json.addProperty("method", "get_new_arrivals");
+            json.addProperty("method", "get_recommended");
 
             Ion.with(getContext())
                     .load(Constants.WS_URL)
@@ -222,8 +228,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     LinearLayoutManager playoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
 
                                     recommendRecyclerView.setLayoutManager(playoutManager);
-                                    recommendRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                                    recommendRecyclerView.setNestedScrollingEnabled(false);
+                                    //recommendRecyclerView.setNestedScrollingEnabled(false);
                                     productAdapter  = new ProductAdapter(arr.getData(),HomeFragment.this);
                                     //Adding adapter to recyclerview
                                     recommendRecyclerView.setAdapter(productAdapter);
@@ -270,7 +275,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     final BrandDTO arr = new Gson().fromJson(result.toString(), BrandDTO.class);
 
                                     //Adding adapter to recyclerview
-                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),3);
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),2);
 
                                     branndsRecyclerView.setLayoutManager(playoutManager);
                                     branndsRecyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -56,15 +56,15 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<MyOrderListAdapter.
 
         final OrderPojo category = Category.get(position);
 
-        holder.txtOrderDate.setText("Delivery date - "+category.getDate()+"\n"+category.getOrder_status());
-        holder.txtOrderPrice.setText("Rs. " + category.getAmount() +"\n"+category.getShippingType());
+        holder.txtOrderDate.setText("Delivery date - "+category.getDate()+"\n Status : "+category.getOrder_status());
+        holder.txtOrderPrice.setText("Rs. " + category.getAmount() +"\n "+category.getShippingType());
         holder.txtOrderId.setText("Order Id - "+category.getOId());
         holder.layoutMyOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MyOrderDetailsActivity.class);
-                intent.putExtra("OrderList", (Serializable) category.getDetails());
-                intent.putExtra("TotalAmount", category.getAmount());
+                intent.putExtra("order", category);
+
                 context.startActivity(intent);
             }
         });

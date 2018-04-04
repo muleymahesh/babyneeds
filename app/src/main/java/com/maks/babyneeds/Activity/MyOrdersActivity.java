@@ -48,18 +48,15 @@ public class MyOrdersActivity  extends AppCompatActivity implements ProductAdapt
         initToolbar();
         initView();
 
+        getData();
 
-        adapter = new MyOrderListAdapter(listCategory, MyOrdersActivity.this);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        //Adding adapter to recyclerview
-        recyclerView.setAdapter(adapter);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
+
 
     }
 
@@ -138,6 +135,10 @@ public class MyOrdersActivity  extends AppCompatActivity implements ProductAdapt
         OrderDTO arr = new Gson().fromJson(array.toString(), OrderDTO.class);
 
         listCategory.addAll(arr.getOrders());
+        adapter = new MyOrderListAdapter(listCategory, MyOrdersActivity.this);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        //Adding adapter to recyclerview
+        recyclerView.setAdapter(adapter);
         //Finally initializig our adapter
         adapter.notifyDataSetChanged();
     }

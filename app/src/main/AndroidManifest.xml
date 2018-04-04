@@ -122,27 +122,25 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="com.example.gcm" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.maks.babyneeds.services.MyGCMIntentService"
-            android:exported="false" />
-        <service
-            android:name="com.maks.babyneeds.services.MyIDListenerService"
-            android:enabled="true"
-            android:exported="false" />
-
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_ic_notification" />
         <activity android:name=".MyOrderDetailsActivity" />
+
         <activity
             android:name="com.maks.babyneeds.phase2.DashboardActivity"
             android:configChanges="orientation"
@@ -153,12 +151,42 @@
                 android:value=".SearchResultsActivity" />
         </activity>
         <activity android:name=".OffersActivity" />
-        <activity android:name=".ReviewActivity"
+        <activity
+            android:name=".ReviewActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".WriteReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecommendedActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WriteReviewActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ImageZoomActivity"></activity>
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@color/app_primary" />
+        <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="@string/default_notification_channel_id" />
+
+        <meta-data
+        android:name="com.facebook.sdk.ApplicationId"
+        android:value="@string/facebook_app_id"
+        tools:replace="android:value" />
+
+        <activity
+        android:name="com.facebook.FacebookActivity"
+        android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        tools:replace="android:theme" />
+
     </application>
 
 </manifest>

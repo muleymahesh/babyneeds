@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,107 +9,127 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/linearLayout"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1">
-    <LinearLayout
-         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:paddingBottom="40dp"
-        android:layout_gravity="center_horizontal" >
-
-
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        >
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lladdr"
-            android:layout_margin="5dp"
-            android:padding="5dp">
+            android:id="@+id/scrollView"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_gravity="center_horizontal" >
 
-            <ListView
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/listView" />
+                android:id="@+id/lladdr"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/card_background"
+                android:padding="5dp">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listView" />
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+ add new address"
+                    android:id="@+id/btnAddr"
+                    android:background="@drawable/rounded_rect"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:padding="4dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/card_background"
+                android:padding="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Select delivery date: "
+                    android:id="@+id/txtDelDate"
+                    android:textColor="@color/app_text"
+                    android:padding="4dp"
+                    android:typeface="serif"
+                    android:layout_margin="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtDate"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_rect"
+                    android:hint="Touch here to select date"
+                    android:padding="10dp"
+                    android:layout_margin="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Delivery time slot"
+                    android:id="@+id/txtDeltime"
+                    android:textColor="@color/app_text"
+                    android:padding="4dp"
+                    android:typeface="serif"
+                    android:layout_margin="10dp" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/timeslot"
+                    android:id="@+id/spnTimeslot"
+                    android:padding="5dp"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:layout_marginBottom="@dimen/fab_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Mode of payment"
+                    android:id="@+id/txtptype"
+                    android:textColor="@color/app_text"
+                    android:padding="4dp"
+                    android:typeface="serif"
+                    android:layout_marginLeft="10dp" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/payment_mode"
+                    android:id="@+id/spnPaymentType"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:padding="8dp"
+                    />
+            </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="+ add new address"
-            android:id="@+id/btnAddr"
-            android:background="@drawable/rounded_rect"
-            android:layout_margin="5dp"
-            android:textSize="13sp"
-            android:padding="1dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Select delivery date: "
-            android:id="@+id/txtDelDate"
-            android:textColor="@color/app_text"
-            android:padding="4dp"
-            android:typeface="serif"
-            android:layout_margin="10dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtDate"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/rounded_rect"
-            android:hint="Touch here to select date"
-            android:padding="10dp"
-            android:layout_margin="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Delivery time slot"
-            android:id="@+id/txtDeltime"
-            android:textColor="@color/app_text"
-            android:padding="4dp"
-            android:typeface="serif"
-            android:layout_margin="10dp" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/timeslot"
-            android:id="@+id/spnTimeslot"
-            android:layout_margin="5dp"
-             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Mode of payment"
-            android:id="@+id/txtptype"
-            android:textColor="@color/app_text"
-            android:padding="4dp"
-            android:typeface="serif"
-            android:layout_marginLeft="10dp" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/payment_mode"
-            android:id="@+id/spnPaymentType"
-            android:layout_margin="5dp"
-            />
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
     <Button
         android:id="@+id/orderBtn"
         android:layout_width="match_parent"
@@ -118,8 +138,9 @@
         android:layout_gravity="center"
         android:textAllCaps="false"
         android:text="ORDER NOW"
+        android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+</RelativeLayout>

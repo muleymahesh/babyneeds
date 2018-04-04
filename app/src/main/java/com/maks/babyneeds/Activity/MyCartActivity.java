@@ -78,7 +78,7 @@ public class MyCartActivity extends AppCompatActivity {
             }
         }
 
-//        adapter = new CartAdapter(list,    MyCartActivity.this);
+        adapter = new CartAdapter(list,    MyCartActivity.this);
         recyclerView.setAdapter(adapter);
 
         txtRs.setText(String.format( "Rs.  %.2f", grandTotal ));
@@ -177,7 +177,7 @@ ShoppingCart sh = list.get(position);
         btnCheckout = (Button) findViewById(R.id.btnCheckOut);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(this,2);
+        layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
 
     }

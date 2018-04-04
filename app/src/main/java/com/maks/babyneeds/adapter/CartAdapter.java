@@ -34,13 +34,13 @@ import java.util.List;
  */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
-    CartFragment context;
+    MyCartActivity context;
     OnItemClickListener mItemClickListener;
     //List of Category
     List<ShoppingCart> shoppingCart;
 
 
-    public CartAdapter(List<ShoppingCart> shoppingCart, CartFragment context){
+    public CartAdapter(List<ShoppingCart> shoppingCart, MyCartActivity context){
         super();
         //Getting all the Category
         this.shoppingCart = shoppingCart;
@@ -61,7 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         final ShoppingCart cart =  shoppingCart.get(position);
 
-        Picasso.with(context.getActivity()).load(Constants.PRODUCT_IMG_PATH+cart.getProduct().getImgs().get(0).getImg_url()).centerInside().resize(300,300).into(holder.imageView);
+        Picasso.with(context).load(Constants.PRODUCT_IMG_PATH+cart.getProduct().getImgs().get(0).getImg_url()).centerInside().resize(300,300).into(holder.imageView);
        holder.textViewName.setText(cart.getProduct().getProduct_name());
 
         SpannableString spannable = new SpannableString("Rs. "+cart.getProduct().getMrp()+" Rs. "+Utils.discountPrice(cart.getProduct().getMrp(),cart.getProduct().getPer_discount()));

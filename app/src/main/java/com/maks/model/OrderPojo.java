@@ -1,5 +1,6 @@
 package com.maks.model;
 
+        import java.io.Serializable;
         import java.util.ArrayList;
         import java.util.List;
         import javax.annotation.Generated;
@@ -7,7 +8,7 @@ package com.maks.model;
         import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class OrderPojo {
+public class OrderPojo implements Serializable{
 
     @SerializedName("o_id")
     @Expose

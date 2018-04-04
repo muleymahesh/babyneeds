@@ -18,6 +18,9 @@
                 android:id="@+id/drawer_shop_category"
                 android:title="@string/shop_by_category"/>
             <item
+                android:id="@+id/drawer_offers"
+                android:title="Latest Offers"/>
+            <item
                 android:id="@+id/drawer_my_orders"
                 android:title="@string/my_orders"/>
         </group>

@@ -2,16 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="172dp"
-    android:background="@color/app_primary"
+    android:background="@color/white"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:layout_alignParentLeft="true"
         android:id="@+id/avatar"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
         android:layout_margin="@dimen/spacing_large"
         android:elevation="4dp"
-        tools:src="@mipmap/ic_launcher"/>
+        android:scaleType="centerInside"
+        tools:src="@drawable/babyneeds"/>
 
     <TextView
         android:id="@+id/txtDrawerUserName"

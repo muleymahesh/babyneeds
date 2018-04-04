@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -35,6 +36,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     @BindView(R.id.imgProduct) ImageView imgProduct;
     @BindView(R.id.txtProductName) TextView txtProductName;
+    @BindView(R.id.txtShortdesc) TextView txtShortDesc;
     @BindView(R.id.etTitle) EditText etTitle;
     @BindView(R.id.etReview) EditText etReview;
     @BindView(R.id.ratingBar) RatingBar rating;
@@ -48,6 +50,7 @@ public class WriteReviewActivity extends AppCompatActivity {
             product = (Product) getIntent().getSerializableExtra("product");
             Picasso.with(this).load(Constants.PRODUCT_IMG_PATH+product.getImgs().get(0).getImg_url()).placeholder(R.drawable.baby_bg).error(R.drawable.baby_bg).into(imgProduct);
             txtProductName.setText(product.getProduct_name());
+            txtShortDesc.setText(product.getShort_desc());
 
         }catch (Exception e){}
     }
@@ -97,15 +100,19 @@ public class WriteReviewActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                  pd.dismiss();
+                          pd.dismiss();
                         // do stuff with the result or error
                         if(e==null){
                             try {
+                                etReview.setText("");
+                                etTitle.setText("");
+                                rating.setRating(0);
                                 Log.e("response",result.toString());
-
+                                Toast.makeText(WriteReviewActivity.this,result.get("responseMessage").getAsString(),Toast.LENGTH_LONG).show();
                             }catch(Exception ex)
                             {ex.printStackTrace();}
                         }
+
 
                     }
                 });

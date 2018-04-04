@@ -64,7 +64,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
             holder.imageView.setImageResource(R.drawable.baby_bg);
         }
 
-        holder.textViewName.setText(product.getName());
+//        holder.textViewName.setText(product.getName());
     }
 
     @Override

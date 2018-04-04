@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/background_gradient_end"
     tools:context="com.maks.babyneeds.Activity.ProductDetailScreenActivity">
@@ -25,8 +26,11 @@
     android:layout_height="wrap_content">
 
 
-    <android.support.v4.view.ViewPager
+    <ss.com.bannerslider.views.BannerSlider
         android:id="@+id/viewpager"
+        app:loopSlides="false"
+        app:interval="5000"
+        app:defaultIndicators="circle"
 
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
@@ -34,7 +38,7 @@
         android:background="#fff"
         >
 
-    </android.support.v4.view.ViewPager>
+    </ss.com.bannerslider.views.BannerSlider>
 
 <!--
     <ImageView

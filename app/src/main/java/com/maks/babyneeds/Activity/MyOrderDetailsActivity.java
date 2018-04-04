@@ -4,6 +4,7 @@ package com.maks.babyneeds.Activity;
  * Created by maks on 3/19/2017.
  */
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,17 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.maks.babyneeds.Utility.AppPreferences;
+import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.adapter.MyOrderAdapter;
 import com.maks.babyneeds.adapter.ProductAdapter;
 import com.maks.model.OrderDetail;
+import com.maks.model.OrderPojo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.OnClick;
 
 /**
  * Created by Deva on 09/03/2017.
@@ -32,13 +43,13 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
     private Toolbar toolbar;
     //Creating a List of Category
     private List<OrderDetail> listCategory = new ArrayList<OrderDetail>();
-
+    OrderPojo order ;
     //Creating Views
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private TextView txtAmount;
-    Button btncancelorder;
+    Button btncancelorder,btnRequestReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,9 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
         initView();
         txtAmount = (TextView) findViewById(R.id.txtAmount);
         btncancelorder = (Button) findViewById(R.id.btncancelorder);
+        btnRequestReturn = (Button) findViewById(R.id.btnRequestReturn);
+
+
         btncancelorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,8 +79,47 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
                             public void onClick(DialogInterface dialog,int id) {
                                 // if this button is clicked, close
                                 // current activity
-                                MyOrderDetailsActivity.this.finish();
+
+                                cancelOrder();
                             }
+
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
+        btnRequestReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        v.getContext());
+
+                // set title
+                alertDialogBuilder.setTitle("Return order");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Are you sure you want to return this order!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+
+                                requestReturn();
+                            }
+
                         })
                         .setNegativeButton("No",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
@@ -86,14 +139,93 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            listCategory = (List<OrderDetail>) extras.getSerializable("OrderList");
+            order = (OrderPojo) extras.getSerializable("order");
+            if(order.getOrder_status().equalsIgnoreCase("canceled") ||
+                    order.getOrder_status().equalsIgnoreCase("delivered")||
+                    order.getOrder_status().equalsIgnoreCase("returned")){
+                btncancelorder.setVisibility(View.GONE);
+            }else{
+                btncancelorder.setVisibility(View.VISIBLE);
+            }
+
+            if(order.getOrder_status().equalsIgnoreCase("delivered"))
+            {
+                btnRequestReturn.setVisibility(View.VISIBLE);
+            }else{
+                btnRequestReturn.setVisibility(View.GONE);
+            }
+
+
+
+            listCategory = order.getDetails();
             txtAmount.setVisibility(View.VISIBLE);
-            txtAmount.setText("Total: Rs." + extras.getString("TotalAmount"));
+            txtAmount.setText("Total bill: Rs." + order.getAmount());
             adapter = new MyOrderAdapter(listCategory, MyOrderDetailsActivity.this);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
     }
+
+    void cancelOrder(){
+        JsonObject json = new JsonObject();
+        json.addProperty("method", "cancel_order");
+        json.addProperty("order_id", order.getOId().replace("OD",""));
+
+        Log.e("request",json.toString());
+        final ProgressDialog pd = new ProgressDialog(MyOrderDetailsActivity.this);
+        pd.show();
+        Ion.with(MyOrderDetailsActivity.this)
+                .load(Constants.WS_URL)
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        pd.dismiss();
+                        // do stuff with the result or error
+                        if(e==null){
+                            try {
+                                Log.e("response",result.toString());
+                                Toast.makeText(MyOrderDetailsActivity.this, ""+result.get("responseMessage").getAsString(), Toast.LENGTH_SHORT).show();
+                            }catch(Exception ex)
+                            {ex.printStackTrace();}
+                        }
+
+                    }
+                });
+
+    }
+    void requestReturn(){
+        JsonObject json = new JsonObject();
+        json.addProperty("method", "request_return");
+        json.addProperty("order_id", order.getOId().replace("OD",""));
+        json.addProperty("user_email", new AppPreferences(this).getEmail());
+
+        Log.e("request",json.toString());
+        final ProgressDialog pd = new ProgressDialog(MyOrderDetailsActivity.this);
+        pd.show();
+        Ion.with(MyOrderDetailsActivity.this)
+                .load(Constants.WS_URL)
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        pd.dismiss();
+                        // do stuff with the result or error
+                        if(e==null){
+                            try {
+                                Log.e("response",result.toString());
+                                Toast.makeText(MyOrderDetailsActivity.this, ""+result.get("responseMessage").getAsString(), Toast.LENGTH_SHORT).show();
+                            }catch(Exception ex)
+                            {ex.printStackTrace();}
+                        }
+
+                    }
+                });
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

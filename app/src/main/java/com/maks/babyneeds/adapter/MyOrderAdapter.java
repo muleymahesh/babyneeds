@@ -29,15 +29,15 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     // private CategoryActivity context;
     private Context context;
     OnItemClickListener mItemClickListener;
-    //List of Category
-    List<OrderDetail> Category;
+    //List of orderList
+    List<OrderDetail> orderList;
     Activity activity;
 
-    public MyOrderAdapter(List<OrderDetail> Category, Context context) {
+    public MyOrderAdapter(List<OrderDetail> orderList, Context context) {
         super();
         this.context = context;
-        //Getting all the Category
-        this.Category = Category;
+        //Getting all the orderList
+        this.orderList = orderList;
         activity = (Activity) context;
     }
 
@@ -52,20 +52,20 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        OrderDetail category = Category.get(position);
+        OrderDetail category = orderList.get(position);
 
         Picasso.with(context).load(Constants.PRODUCT_IMG_PATH + category.getImgUrl()).resize(400, 220).centerCrop().into(holder.imageView);
         holder.txtName.setText(category.getProductName());
         holder.txtPrice.setText("Rs. " + category.getMrp());
         holder.txtQuantity.setText("Quantity: " + category.getQty());
 
-        //holder.txtStatus.setText(category.getOrder_status());
+        //holder.txtStatus.setText(orderList.getOrder_status());
         //holder.txtID.setText(category.getOId() + " Date: " + category.getDate());
     }
 
     @Override
     public int getItemCount() {
-        return Category.size();
+        return orderList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

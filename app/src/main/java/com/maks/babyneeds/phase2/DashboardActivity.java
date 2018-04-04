@@ -24,6 +24,7 @@ import com.maks.babyneeds.Activity.BrandListActivity;
 import com.maks.babyneeds.Activity.CategoryActivity;
 import com.maks.babyneeds.Activity.FeedbackActivity;
 import com.maks.babyneeds.Activity.MyOrdersActivity;
+import com.maks.babyneeds.Activity.OffersActivity;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Activity.ServicesCategoryActivity;
 import com.maks.babyneeds.Activity.NewArrivalActivity;
@@ -113,6 +114,12 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.drawer_shop_brand:
 
                 startActivity(new Intent(this, BrandListActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START,true);
+
+                return true;
+                case R.id.drawer_offers:
+
+                startActivity(new Intent(this, OffersActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START,true);
 
                 return true;
