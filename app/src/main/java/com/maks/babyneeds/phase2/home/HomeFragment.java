@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.maks.babyneeds.Activity.ProductListActivity;
 import com.maks.babyneeds.Activity.R;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
+import com.maks.babyneeds.Utility.DelayAutoCompleteTextView;
 import com.maks.model.BannerPojo;
 import com.maks.model.Brand;
 import com.maks.model.BrandDTO;
@@ -89,6 +91,24 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         getBannerOfferData();
+
+        DelayAutoCompleteTextView bookTitle = (DelayAutoCompleteTextView) view.findViewById(R.id.et_book_title);
+        bookTitle.setThreshold(2);
+        bookTitle.setAdapter(new ProductAutoCompleteAdapter(getActivity())); // 'this' is Activity instance
+        bookTitle.setLoadingIndicator(
+                (android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator));
+        bookTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Product book = (Product) adapterView.getItemAtPosition(position);
+                Intent intent=new Intent(getActivity(),ProductDetailScreenActivity.class);
+                intent.putExtra("product", book);
+                startActivity(intent);
+                bookTitle.setText("");
+            }
+        });
+
+
 
 
         return view;

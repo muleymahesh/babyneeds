@@ -11,7 +11,33 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <FrameLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/eight_dp">
+
+                <com.maks.babyneeds.Utility.DelayAutoCompleteTextView
+                    android:id="@+id/et_book_title"
+                    android:inputType="textCapSentences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/eight_dp"
+                    android:hint="Search"
+                    android:drawableLeft="@android:drawable/ic_menu_search"
+                    android:imeOptions="flagNoExtractUi|actionSearch"/>
+
+                <ProgressBar
+                    android:id="@+id/pb_loading_indicator"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="@dimen/eight_dp"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+
             <include layout="@layout/banner_slider"/>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_margin="@dimen/eight_dp"
