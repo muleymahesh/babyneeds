@@ -119,6 +119,32 @@ public class SQLiteUtil {
     }
 
 
+    public Address getAddress(Context ctx){
+        DBHelper dbHelper = new DBHelper(ctx);
+        ArrayList<Address> arr = new ArrayList<Address>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Address address = new Address();
+
+        Cursor cursor=db.rawQuery("select * from tbl_address", null);
+        if (cursor!=null && cursor.moveToFirst()) {
+
+                address.setId(cursor.getInt(0));
+                address.setFname(cursor.getString(1));
+                address.setLname(cursor.getString(2));
+                address.setEmail(cursor.getString(3));
+                address.setPhone(cursor.getString(4));
+                address.setArea(cursor.getString(5));
+                address.setAddr(cursor.getString(6));
+                address.setLandmark(cursor.getString(7));
+                address.setZipcode(cursor.getString(8));
+
+                arr.add(address);
+
+        }
+
+        return address;
+    }
+
     public ArrayList<ShoppingCart> getData(Context ctx){
         DBHelper dbHelper = new DBHelper(ctx);
         ArrayList<ShoppingCart> arr = new ArrayList<ShoppingCart>();

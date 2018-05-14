@@ -387,9 +387,13 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
             btnPlus.setVisibility(View.INVISIBLE);
             txtQuantity.setVisibility(View.INVISIBLE);
 
+        }else if (product.getStock().equals("1")) {
+
+            stock.setText("In stock   : Only one left in stock. \n call on +9891850708 for more order");
+
         } else {
-            stock.setText("In stock      :  " + product.getStock());
-            stock.setVisibility(View.GONE);
+            stock.setText("In stock   : Available ");
+            stock.setVisibility(View.VISIBLE);
         }
         if (product.getExpiry_date().equals("NA")) {
             expiry.setVisibility(View.GONE);

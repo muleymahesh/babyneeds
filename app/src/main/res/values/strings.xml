@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <array name="timeslot">
         <item>9 - 11 AM</item>
         <item>11 - 1PM</item>
@@ -60,5 +60,11 @@
     <string name="facebook_app_id">645248432304646</string>
     <string name="fb_login_protocol_scheme">fb645248432304646</string>
 
+    <!-- app rating-->
+    <string name="new_rate_dialog_title" tools:ignore="MissingTranslation">Rate Me!</string>
+    <string name="new_rate_dialog_message" tools:ignore="MissingTranslation" tools:keep="@string/new_rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
+    <string name="new_rate_dialog_never" tools:ignore="MissingTranslation">Never</string>
+    <string name="new_rate_dialog_later" tools:ignore="MissingTranslation">Later</string>
+    <string name="new_rate_dialog_ok" tools:ignore="MissingTranslation">Rate</string>
 
 </resources>

@@ -47,16 +47,12 @@ public class MyOrdersActivity  extends AppCompatActivity implements ProductAdapt
         setContentView(R.layout.activity_my_orders);
         initToolbar();
         initView();
-
-        getData();
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        getData();
 
     }
 
@@ -133,7 +129,7 @@ public class MyOrdersActivity  extends AppCompatActivity implements ProductAdapt
     private void parseData(String array) {
 
         OrderDTO arr = new Gson().fromJson(array.toString(), OrderDTO.class);
-
+        listCategory.clear();
         listCategory.addAll(arr.getOrders());
         adapter = new MyOrderListAdapter(listCategory, MyOrdersActivity.this);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());

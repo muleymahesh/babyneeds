@@ -1,6 +1,7 @@
 package com.maks.babyneeds.phase2.home;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -28,9 +32,12 @@ import com.maks.babyneeds.Activity.OffersActivity;
 import com.maks.babyneeds.Activity.ProductDetailScreenActivity;
 import com.maks.babyneeds.Activity.ProductListActivity;
 import com.maks.babyneeds.Activity.R;
+import com.maks.babyneeds.Activity.SearchResultsActivity;
 import com.maks.babyneeds.Utility.ConnectionDetector;
 import com.maks.babyneeds.Utility.Constants;
 import com.maks.babyneeds.Utility.DelayAutoCompleteTextView;
+import com.maks.model.AgeGroup;
+import com.maks.model.AgeGroupDTO;
 import com.maks.model.BannerPojo;
 import com.maks.model.Brand;
 import com.maks.model.BrandDTO;
@@ -59,6 +66,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
     @BindView(R.id.recommendrecyclerView) RecyclerView recommendRecyclerView;
     @BindView(R.id.brandsRecyclerView) RecyclerView branndsRecyclerView;
     @BindView(R.id.categoryRecyclerView) RecyclerView categoryRecyclerView;
+    @BindView(R.id.ageRecyclerView) RecyclerView ageRecyclerView;
     @BindView(R.id.banner_slider1) BannerSlider bannerSlider;
 
     private GridLayoutManager layoutManager;
@@ -67,6 +75,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
             ;
     BrandAdapter brandsAdapter;
     CatgoryAdapter categoryAdapter;
+    AgeGroupAdapter ageGroupAdapter;
     private List<Offer> listOffers = new ArrayList<>();
     List<BannerPojo> bannerList = new ArrayList<>();
 
@@ -108,7 +117,19 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
             }
         });
 
+        bookTitle.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
+                    Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                    intent.putExtra(SearchManager.QUERY,bookTitle.getText().toString());
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
         return view;
@@ -319,7 +340,7 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                 }catch(Exception ex)
                                 {ex.printStackTrace();}
                             }
-                            getCategoryData();
+                            getAgeGroupData();
                         }
                     });
 
@@ -368,6 +389,57 @@ public class HomeFragment extends Fragment implements CatgoryAdapter.OnItemClick
                                     });
                                     categoryRecyclerView.setAdapter(categoryAdapter);
 
+                                }catch(Exception ex)
+                                {ex.printStackTrace();}
+                            }
+                        }
+                    });
+
+        }else{
+            Toast.makeText(getContext(), "You are offline!.", Toast.LENGTH_SHORT).show();
+        }
+    }
+private void getAgeGroupData(){
+        if(new ConnectionDetector(getContext()).isConnectingToInternet()) {
+            final ProgressDialog pd = new ProgressDialog(getActivity());
+            JsonObject json = new JsonObject();
+            json.addProperty("method", "get_all_agegroup");
+
+            Ion.with(getContext())
+                    .load(Constants.WS_URL)
+                    .setJsonObjectBody(json)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            // do stuff with the result or error
+                            if(e==null){
+                                try {
+                                    Log.e("response",result.toString());
+
+                                    final AgeGroupDTO arr = new Gson().fromJson(result.toString(), AgeGroupDTO.class);
+
+                                    //Adding adapter to recyclerview
+                                    GridLayoutManager playoutManager = new GridLayoutManager(getContext(),1);
+
+                                    ageRecyclerView.setLayoutManager(playoutManager);
+                                    ageRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                                    ageRecyclerView.setNestedScrollingEnabled(false);
+                                    ageGroupAdapter = new AgeGroupAdapter(arr.getData().subList(0,5),HomeFragment.this);
+                                    //Adding adapter to recyclerview
+                                    ageGroupAdapter.setOnItemClickListener(new AgeGroupAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(View view, int position) {
+
+                                            Intent i  = new Intent(getActivity(), ProductListActivity.class);
+                                            i.putExtra("age_id",arr.getData().get(position).getId());
+                                            i.putExtra("age_name",arr.getData().get(position).getName());
+                                            startActivity(i);
+
+                                        }
+                                    });
+                                    ageRecyclerView.setAdapter(ageGroupAdapter);
+                                    getCategoryData();
                                 }catch(Exception ex)
                                 {ex.printStackTrace();}
                             }

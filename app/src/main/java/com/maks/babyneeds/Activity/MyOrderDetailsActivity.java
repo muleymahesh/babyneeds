@@ -49,7 +49,7 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private TextView txtAmount;
-    Button btncancelorder,btnRequestReturn;
+    Button btncancelorder,btnRequestReturn,btnEmailInvoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
         txtAmount = (TextView) findViewById(R.id.txtAmount);
         btncancelorder = (Button) findViewById(R.id.btncancelorder);
         btnRequestReturn = (Button) findViewById(R.id.btnRequestReturn);
+        btnEmailInvoice = (Button) findViewById(R.id.btnEmailInvoice);
 
 
         btncancelorder.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +137,12 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
                 alertDialog.show();
             }
         });
+        btnEmailInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             emailInvoice(order.getOId());
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -151,8 +158,11 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
             if(order.getOrder_status().equalsIgnoreCase("delivered"))
             {
                 btnRequestReturn.setVisibility(View.VISIBLE);
+                btnEmailInvoice.setVisibility(View.VISIBLE);
+
             }else{
                 btnRequestReturn.setVisibility(View.GONE);
+                btnEmailInvoice.setVisibility(View.GONE);
             }
 
 
@@ -164,6 +174,30 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void emailInvoice(String oId) {
+        final ProgressDialog pd = new ProgressDialog(MyOrderDetailsActivity.this);
+        pd.show();
+        Ion.with(MyOrderDetailsActivity.this)
+                .load(Constants.INVOICE_URL+oId)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        if(e==null){
+                            try {
+                                Log.e("response",result.toString());
+                                Toast.makeText(MyOrderDetailsActivity.this, "Order invoice sent to your registered email id...!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }catch(Exception ex)
+                            {ex.printStackTrace();}
+                        }else{
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
     void cancelOrder(){
@@ -187,14 +221,18 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
                             try {
                                 Log.e("response",result.toString());
                                 Toast.makeText(MyOrderDetailsActivity.this, ""+result.get("responseMessage").getAsString(), Toast.LENGTH_SHORT).show();
+                                finish();
                             }catch(Exception ex)
                             {ex.printStackTrace();}
+                        }else{
+                            e.printStackTrace();
                         }
 
                     }
                 });
 
     }
+
     void requestReturn(){
         JsonObject json = new JsonObject();
         json.addProperty("method", "request_return");
@@ -217,6 +255,7 @@ public class MyOrderDetailsActivity extends AppCompatActivity implements Product
                             try {
                                 Log.e("response",result.toString());
                                 Toast.makeText(MyOrderDetailsActivity.this, ""+result.get("responseMessage").getAsString(), Toast.LENGTH_SHORT).show();
+                            finish();
                             }catch(Exception ex)
                             {ex.printStackTrace();}
                         }

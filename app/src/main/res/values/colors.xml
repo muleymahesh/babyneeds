@@ -26,7 +26,7 @@
     <color name="colorNavAccentUnselected">#e2e2e3</color>
 
     <color name="background_gradient_start">#000000</color>
-    <color name="background_gradient_end">#DDDDDD</color>
+    <color name="background_gradient_end">#dddddd</color>
     <color name="fastlane_background">#0096a6</color>
     <color name="search_opaque">#ffaa3f</color>
     <color name="detail_background">#0096a6</color>

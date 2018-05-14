@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.maks.babyneeds.Activity.AddressActivity;
 import com.maks.babyneeds.Activity.LoginActivity;
 import com.maks.babyneeds.Activity.PlaceOrderActivity;
 import com.maks.babyneeds.Activity.R;
@@ -93,7 +94,7 @@ public class CartFragment extends Fragment implements
                     } else {
 
                         if(new AppPreferences(getActivity()).isLogin()) {
-                            Intent intent = new Intent(getActivity(), PlaceOrderActivity.class);
+                            Intent intent = new Intent(getActivity(), AddressActivity.class);
                             intent.putExtra("amount", txtRs.getText().toString().substring(4));
                             CartList.getInstance().setArrayListCart(list);
                             startActivity(intent);

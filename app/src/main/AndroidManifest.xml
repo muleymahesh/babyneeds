@@ -100,7 +100,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".AddressActivity" />
+        <activity android:name=".AddressActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".AboutUsActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".HomeActivity" />
@@ -145,6 +146,7 @@
             android:name="com.maks.babyneeds.phase2.DashboardActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.default_searchable"

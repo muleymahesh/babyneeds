@@ -2,145 +2,152 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gradient_end"
     android:orientation="vertical"
-    tools:context="com.maks.babyneeds.Activity.MyOrdersActivity"
-    >
+    tools:context="com.maks.babyneeds.Activity.MyOrdersActivity">
+
     <include layout="@layout/toolbar" />
 
     <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
-        >
+        android:layout_marginTop="@dimen/eight_dp"
+        android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/lladdr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <TextView
+                    android:text="DELIVERY DETAILS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/app_text"
+                    android:padding="@dimen/eight_dp"
+                    android:typeface="serif"/>
+
+                <include layout="@layout/addr_item" />
+                <TextView
+                    android:id="@+id/txtdatetime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_gravity="right"
+                    android:id="@+id/btnAddr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  CHANGE  " />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/txtptype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="PAYMENT DETAIL"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/app_text"
+                    android:typeface="serif" />
+
+                <RadioGroup
+                    android:id="@+id/radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:background="@color/colorNavAccentUnselected"
+                        android:text="CASH ON DELIVERY" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:background="@color/colorNavAccentUnselected"
+                        android:text="COD BY PAYTM" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:background="@color/colorNavAccentUnselected"
+                        android:layout_weight="1"
+                        android:text="COD BY MobiKwik" />
+                </RadioGroup>
+            </LinearLayout>
         <LinearLayout
+            android:padding="@dimen/eight_dp"
+            android:background="@drawable/card_background"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:layout_gravity="center_horizontal" >
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/n"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lladdr"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/card_background"
-                android:padding="5dp">
-
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/listView" />
-
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="+ add new address"
-                    android:id="@+id/btnAddr"
-                    android:background="@drawable/rounded_rect"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="@dimen/fab_margin"
-                    android:padding="4dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/card_background"
-                android:padding="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Select delivery date: "
-                    android:id="@+id/txtDelDate"
-                    android:textColor="@color/app_text"
-                    android:padding="4dp"
-                    android:typeface="serif"
-                    android:layout_margin="10dp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtDate"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/rounded_rect"
-                    android:hint="Touch here to select date"
-                    android:padding="10dp"
-                    android:layout_margin="5dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Delivery time slot"
-                    android:id="@+id/txtDeltime"
-                    android:textColor="@color/app_text"
-                    android:padding="4dp"
-                    android:typeface="serif"
-                    android:layout_margin="10dp" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/timeslot"
-                    android:id="@+id/spnTimeslot"
-                    android:padding="5dp"
-                    android:layout_marginBottom="@dimen/fab_margin"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
                 android:padding="8dp"
-                android:layout_marginBottom="@dimen/fab_margin">
+                android:text="ORDER SUMMARY"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/app_text"
+                android:typeface="serif" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Mode of payment"
-                    android:id="@+id/txtptype"
-                    android:textColor="@color/app_text"
-                    android:padding="4dp"
-                    android:typeface="serif"
-                    android:layout_marginLeft="10dp" />
+            <android.support.v7.widget.RecyclerView
+            android:id="@+id/productRecycler"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="56dp"
+                android:minHeight="100dp"
+            android:layout_height="wrap_content">
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/payment_mode"
-                    android:id="@+id/spnPaymentType"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    android:padding="8dp"
-                    />
-            </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+        </LinearLayout>
+</ScrollView>
+
     <Button
         android:id="@+id/orderBtn"
         android:layout_width="match_parent"
-        android:background="@color/app_primary"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:textAllCaps="false"
-        android:text="ORDER NOW"
-        android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@color/app_primary"
+        android:text="ORDER NOW"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

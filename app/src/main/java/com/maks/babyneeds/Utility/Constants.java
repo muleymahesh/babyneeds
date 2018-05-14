@@ -41,6 +41,7 @@ public final static String TAG_DOCTOR_ADDRESS ="address";
 
     //Webservices
     public static final String WS_URL = "http://babyneeds.co.in/babyneeds/ws/v2/api.php";
+    public static final String INVOICE_URL = "http://babyneeds.co.in/babyneeds/send_invoice.php?o_id=";
 
 
 

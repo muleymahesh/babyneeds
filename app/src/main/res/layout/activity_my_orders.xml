@@ -50,5 +50,16 @@
         android:visibility="gone"
         android:text="Request return"
         android:textColor="#fff" />
+    <Button
+        android:id="@+id/btnEmailInvoice"
+        android:background="@drawable/card_state_pressed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:padding="12dp"
+        android:visibility="visible"
+        android:text="Email Invoice"
+        android:textColor="#fff" />
+
 
 </LinearLayout>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gradient_end"
     tools:context="com.maks.babyneeds.Activity.AddressActivity"
     android:orientation="vertical">
     <include layout="@layout/toolbar" />
@@ -10,158 +11,266 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/scrollView2"
         android:layout_weight="1">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<TableLayout
+    android:background="@drawable/rounded_rect"
+    android:padding="@dimen/eight_dp"
+    android:layout_margin="@dimen/eight_dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADDRESS"
+        android:layout_margin="@dimen/eight_dp"
+        android:textSize="13sp"
+        android:textColor="@color/black_opaque"
+        />
 
-
-        <LinearLayout
-            android:orientation="vertical"
+    <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="FULL NAME"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                />
             <EditText
+                android:layout_weight="1"
                 android:id="@+id/txtFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
                 android:textColor="@color/app_text"
                 android:textStyle="bold"
                 android:padding="8dp"
+                android:lines="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/rounded_rect"
-                android:layout_margin="4dp" />
-
-            <EditText
+                />
+        </TableRow>
+    <TableRow
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="LAST NAME"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        />
+    <EditText
+        android:layout_weight="1"
                 android:id="@+id/txtLname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
                 android:textColor="@color/app_text"
                 android:textStyle="bold"
                 android:padding="8dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/rounded_rect"
                 android:layout_margin="4dp" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="PHONE NUMBER"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        />
 
-            <EditText
+    <EditText
+        android:layout_weight="1"
                 android:id="@+id/txtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone"
                 android:textColor="@color/app_text"
                 android:inputType="phone"
                 android:textStyle="bold"
                 android:padding="8dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/rounded_rect"
                 android:layout_margin="4dp" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
+    <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Area"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:hint="ADDRESS"
                 android:id="@+id/textView"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="10dp" />
+                />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:background="@drawable/card_background_selector" />
 
             <EditText
-                android:id="@+id/editText6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="State"
-                android:visibility="gone"
-                android:textColor="@color/app_text"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/edittext_bg"
-                android:layout_margin="4dp" />
-
-            <EditText
-                android:id="@+id/editText7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Country"
-                android:textColor="@color/app_text"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:visibility="gone"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/edittext_bg"
-                android:layout_margin="4dp" />
-
-            <EditText
+                android:layout_weight="1"
                 android:id="@+id/txtAddr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Address"
+                android:textColor="@color/app_text"
+                android:padding="8dp"
+                android:lines="1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_margin="4dp"
+                android:gravity="start" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:hint="AREA"
+        />
+
+    <Spinner
+        android:layout_weight="1"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/app_text"
                 android:textStyle="bold"
                 android:padding="8dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/rounded_rect"
-                android:layout_margin="4dp"
-                android:lines="2"
-                android:gravity="start" />
+                android:layout_margin="4dp" />
+    </TableRow> <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:hint="LANDMARK"
+        />
 
-            <EditText
+    <EditText
+        android:layout_weight="1"
                 android:id="@+id/txtLandmark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Landmark"
                 android:textColor="@color/app_text"
                 android:textStyle="bold"
                 android:padding="8dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:background="@drawable/rounded_rect"
                 android:layout_margin="4dp" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
+    <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Pincode"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:hint="PINCODE"
                 android:id="@+id/textView1"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="10dp" />
+                />
             <Spinner
-                android:id="@+id/txtZipcode"
+                android:layout_weight="1"
+                android:id="@+id/spnPincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_text"
                 android:entries="@array/pincode"
-                android:background="@drawable/card_background_selector"
-                />
+                android:padding="@dimen/eight_dp"/>
+    </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Call us on +91-9891850708 if your area is missing from the list &amp; we will arrange your order"
-                android:id="@+id/textView2"
-                android:textColor="@android:color/black"
-                android:linksClickable="true"
-                android:autoLink="phone"
-                android:layout_margin="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Call us on +91-9891850708 if your area is missing from the list &amp; we will arrange your order"
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black"
+        android:linksClickable="true"
+        android:autoLink="phone"
+        android:padding="@dimen/eight_dp"
+        android:layout_margin="5dp" />
 
-        </LinearLayout>
+</TableLayout>
+    <LinearLayout
+        android:padding="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:background="@drawable/rounded_rect" android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent">
+        <TextView
+            android:layout_marginRight="@dimen/eight_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DELIVERY"
+            android:textSize="13sp"
+            android:textColor="@color/black_opaque"
+            android:layout_margin="@dimen/eight_dp"
+            />
+
+        <TableRow
+
+            android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginRight="@dimen/eight_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:hint="SELECT DATE"
+            />
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDate"
+            android:background="@drawable/rounded_rect"
+            android:hint="Touch to select date"
+             />
+    </TableRow>
+    <TableRow
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginRight="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:hint="TIME SLOT"
+            />
+
+        <Spinner
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/timeslot"
+            android:id="@+id/spnTimeslot"
+            android:padding="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="16dp"
+            />
+    </TableRow>
+
+    </LinearLayout>
+</LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="NEXT"
         android:id="@+id/btnSave"
         android:layout_gravity="center_horizontal"
         android:background="@color/app_primary"

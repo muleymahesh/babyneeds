@@ -129,7 +129,7 @@ ShoppingCart sh = list.get(position);
                 } else {
 
                     if(new AppPreferences(MyCartActivity.this).isLogin()) {
-                        Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
                         intent.putExtra("amount", txtRs.getText().toString().substring(4));
                         CartList.getInstance().setArrayListCart(list);
                         startActivity(intent);

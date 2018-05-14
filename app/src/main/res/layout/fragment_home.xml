@@ -148,6 +148,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_margin="@dimen/eight_dp"
+                    android:text="Shop by Age Group"/>
+                <View
+                    android:id="@+id/topline11"
+                    android:layout_below="@+id/age"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/background_gradient_end"
+                    android:layout_marginLeft="@dimen/eight_dp"
+                    android:layout_marginRight="@dimen/eight_dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/ageRecyclerView"
+                    android:layout_below="@+id/topline11"
+                    android:layout_height="wrap_content"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="@dimen/eight_dp"
+                android:background="@drawable/card_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

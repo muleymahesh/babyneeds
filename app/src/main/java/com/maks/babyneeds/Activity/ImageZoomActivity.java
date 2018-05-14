@@ -19,7 +19,7 @@ public class ImageZoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_zoom);
         initToolbar();
         ZoomableImageView imageView =(ZoomableImageView)findViewById(R.id.imgZoom);
-        Picasso.with(this).load(getIntent().getStringExtra("url")).resize(500,400).centerInside().placeholder(R.drawable.baby_bg).into(imageView);
+        Picasso.with(this).load(getIntent().getStringExtra("url")).resize(500,600).centerInside().placeholder(R.drawable.baby_bg).into(imageView);
 
 
     }
