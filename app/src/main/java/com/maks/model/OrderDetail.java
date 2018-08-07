@@ -13,6 +13,10 @@ import java.io.Serializable;
 @Generated("org.jsonschema2pojo")
 public class OrderDetail implements Serializable{
 
+    @SerializedName("id")
+    @Expose
+    private int id;
+
     @SerializedName("qty")
     @Expose
     private String qty;
@@ -91,4 +95,11 @@ public class OrderDetail implements Serializable{
         this.mrp = mrp;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -51,7 +51,7 @@ class MyOrderListAdapter extends RecyclerView.Adapter {
 
         final OrderPojo category = Category.get(position);
         MyViewHolder holder = (MyViewHolder) holder1;
-        holder.txtOrderDate.setText(category.getDate().replace("between","time")+"\n Status : "+category.getOrder_status());
+        holder.txtOrderDate.setText(category.getDate().replace("between","time")+"\n Status : "+category.getOrder_status()+"\n Shipping type : "+category.getShippingType());
         holder.txtOrderPrice.setText("Rs. " + category.getAmount() );
         holder.txtOrderId.setText("Order Id - "+category.getOId());
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -62,11 +62,11 @@ class MyOrderListAdapter extends RecyclerView.Adapter {
         }
         if(category.getOrder_status().equalsIgnoreCase("delivered")){
             holder.btnPayment.setVisibility(View.GONE);
-            holder.btnDelivered.setVisibility(View.GONE);
+       //     holder.btnDelivered.setVisibility(View.GONE);
             holder.txtOrderDate.setTextColor(Color.RED);
         }else{
             holder.btnPayment.setVisibility(View.VISIBLE);
-            holder.btnDelivered.setVisibility(View.VISIBLE);
+          //  holder.btnDelivered.setVisibility(View.VISIBLE);
             holder.txtOrderDate.setTextColor(Color.BLUE);
         }
 

@@ -115,7 +115,7 @@ public class DashboardActivity extends AppCompatActivity {
                 .setRemindLaunchTimes ((byte) 2)    // default 1 (each launch).
                 .setShowLaterButton(true)
                 .setShowNeverButton(false)// default true.
-                .setDebug(false)                     // default false.
+                .setDebug(true)                     // default false.
                 .setCancelable(false)               // default false.
                 .setOnClickButtonListener(which -> Log.d("", "RateButton: " + Byte.toString(which) + ""))
                 // comment to use library strings instead app strings

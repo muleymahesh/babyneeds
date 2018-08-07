@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -140,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
     //This method will parse json data
     private void parseData(String array) {
-
+        Log.e("",array);
         OrderDTO arr = new Gson().fromJson(array.toString(), OrderDTO.class);
-
+        listCategory.clear();
         listCategory.addAll(arr.getOrders());
         //Finally initializig our adapter
         adapter.notifyDataSetChanged();

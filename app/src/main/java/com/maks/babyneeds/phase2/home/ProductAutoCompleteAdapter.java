@@ -121,18 +121,18 @@ public class ProductAutoCompleteAdapter extends BaseAdapter implements Filterabl
 
             ProductDTO arr = new Gson().fromJson(response.body().string(), ProductDTO.class);
 
-            Collections.sort(arr.getData(), new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    String query = bookTitle.toString();
-                    String arr[] = query.split(" ");
-                    String PREFIX = arr[0];
-                    if (o1.getProduct_name().contains(PREFIX) && o2.getProduct_name().contains(PREFIX)) return o1.getProduct_name().compareTo(o2.getProduct_name());
-                    if (o1.getProduct_name().contains(PREFIX) && !o2.getProduct_name().contains(PREFIX)) return -1;
-                    if (!o1.getProduct_name().contains(PREFIX) && o2.getProduct_name().contains(PREFIX)) return 1;
-                    return 0;
-                }
-            });
+//            Collections.sort(arr.getData(), new Comparator<Product>() {
+//                @Override
+//                public int compare(Product o1, Product o2) {
+//                    String query = bookTitle.toString();
+//                    String arr[] = query.split(" ");
+//                    String PREFIX = arr[0];
+//                    if (o1.getProduct_name().contains(PREFIX) && o2.getProduct_name().contains(PREFIX)) return o1.getProduct_name().compareTo(o2.getProduct_name());
+//                    if (o1.getProduct_name().contains(PREFIX) && !o2.getProduct_name().contains(PREFIX)) return -1;
+//                    if (!o1.getProduct_name().contains(PREFIX) && o2.getProduct_name().contains(PREFIX)) return 1;
+//                    return 0;
+//                }
+//            });
             return arr.getData();
 
         } catch (IOException e) {

@@ -395,7 +395,7 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
             stock.setText("In stock   : Available ");
             stock.setVisibility(View.VISIBLE);
         }
-        if (product.getExpiry_date().equals("NA")) {
+        if (product.getExpiry_date().trim().equalsIgnoreCase("NA")) {
             expiry.setVisibility(View.GONE);
         }
         else{
@@ -416,8 +416,8 @@ public class ProductDetailScreenActivity extends AppCompatActivity {
 
         review.setText("("+product.getReviews()+")");
         try {
-            rating.setText(""+Math.round(Float.valueOf(product.getAvgRating()))+"/5");
             ratingBar.setRating(Math.round(Float.valueOf(product.getAvgRating())));
+            rating.setText(""+Math.round(Float.valueOf(product.getAvgRating()))+"/5");
         }catch (Exception e){e.printStackTrace();}
     }
 
